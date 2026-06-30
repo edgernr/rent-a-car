@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#0A1A24}
+  @keyframes srd-up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes srd-in{from{transform:translateX(100%)}to{transform:translateX(0)}}
+  @keyframes srd-fade{from{opacity:0}to{opacity:1}}
+  ::selection{background:#E0A93B;color:#0A1A24}
+  select{appearance:none;-webkit-appearance:none}
+</style>
+</helmet>
+
+<div style="--bg:#0A1A24;--bg2:#0C2029;--surf:#102C38;--surf2:#163A47;--gold:#E0A93B;--teal:#2BB8AD;--blue:#3AA0D6;--cream:#F3EEE2;--muted:#93A8B0;--line:rgba(226,221,206,.12);background:var(--bg);color:var(--cream);font-family:Manrope,system-ui,sans-serif;min-height:100vh;position:relative;overflow-x:hidden;-webkit-font-smoothing:antialiased">
+
+  <!-- ============ HEADER ============ -->
+  <header style="position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:rgba(10,26,36,.78);border-bottom:1px solid var(--line)">
+    <div style="max-width:1220px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;gap:24px">
+      <a href="#top" style="display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--cream)">
+        <span style="width:26px;height:26px;background:var(--gold);transform:rotate(45deg);display:inline-block;border-radius:5px;position:relative">
+          <span style="position:absolute;inset:6px;border:1.5px solid rgba(10,26,36,.65);border-radius:2px"></span>
+        </span>
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.01em;line-height:1">SILK&nbsp;ROAD<br><span style="color:var(--gold);font-weight:700;letter-spacing:.22em;font-size:11px">D&nbsp;R&nbsp;I&nbsp;V&nbsp;E</span></span>
+      </a>
+      <nav style="display:flex;gap:26px;margin-left:18px">
+        <a href="#fleet" style="color:var(--muted);text-decoration:none;font-size:14.5px;font-weight:600">{{ t.navFleet }}</a>
+        <a href="#routes" style="color:var(--muted);text-decoration:none;font-size:14.5px;font-weight:600">{{ t.navRoutes }}</a>
+        <a href="#addons" style="color:var(--muted);text-decoration:none;font-size:14.5px;font-weight:600">{{ t.navAddons }}</a>
+        <a href="#reviews" style="color:var(--muted);text-decoration:none;font-size:14.5px;font-weight:600">{{ t.navReviews }}</a>
+      </nav>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:16px">
+        <div style="display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden">
+          <sc-for list="{{ langButtons }}" as="lb" hint-placeholder-count="3">
+            <button onClick="{{ lb.onClick }}" style="{{ lb.style }}">{{ lb.code }}</button>
+          </sc-for>
+        </div>
+        <a href="#fleet" style="background:var(--gold);color:#0A1A24;text-decoration:none;font-weight:700;font-size:14px;padding:10px 18px;border-radius:999px">{{ t.navBook }}</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section id="top" style="position:relative;max-width:1220px;margin:0 auto;padding:56px 28px 30px">
+    <div style="display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:9px;color:var(--gold);font-family:ui-monospace,monospace;font-size:12px;letter-spacing:.12em;margin-bottom:22px">
+          <span style="width:7px;height:7px;background:var(--teal);transform:rotate(45deg);display:inline-block"></span>{{ t.heroEyebrow }}
+        </div>
+        <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(40px,5.4vw,68px);line-height:.98;letter-spacing:-.025em;text-wrap:balance;margin-bottom:20px">{{ t.heroTitle }}</h1>
+        <p style="font-size:18px;line-height:1.55;color:var(--muted);max-width:30em;text-wrap:pretty">{{ t.heroSub }}</p>
+      </div>
+      <div style="position:relative;aspect-ratio:4/3.2;border-radius:18px;overflow:hidden;background:#123845;border:1px solid var(--line)">
+        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(60deg,rgba(224,169,59,.10) 0 1px,transparent 1px 26px),repeating-linear-gradient(-60deg,rgba(224,169,59,.10) 0 1px,transparent 1px 26px),repeating-linear-gradient(0deg,rgba(43,184,173,.08) 0 1px,transparent 1px 26px)"></div>
+        <div style="position:absolute;inset:0;display:grid;place-items:center">
+          <span style="width:120px;height:120px;border:1.5px solid rgba(243,238,226,.18);transform:rotate(45deg);border-radius:14px"></span>
+        </div>
+        <span style="position:absolute;left:18px;bottom:16px;font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.08em;color:rgba(243,238,226,.5)">// {{ t.heroImg }}</span>
+        <div style="position:absolute;right:16px;top:16px;z-index:2;pointer-events:none;background:rgba(10,26,36,.72);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px">
+          <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px;color:var(--gold)">4.9</span>
+          <span style="font-size:12px;line-height:1.25;color:var(--muted)">★★★★★<br>{{ t.heroRating }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEARCH WIDGET -->
+    <div style="margin-top:34px;background:linear-gradient(180deg,var(--surf),var(--bg2));border:1px solid var(--line);border-radius:18px;padding:16px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:12px;align-items:end;box-shadow:0 24px 60px -30px rgba(0,0,0,.7)">
+      <label style="display:flex;flex-direction:column;gap:7px">
+        <span style="font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600">{{ t.fPickup }}</span>
+        <div style="position:relative">
+          <select style="width:100%;background:var(--bg);color:var(--cream);border:1px solid var(--line);border-radius:11px;padding:12px 30px 12px 13px;font-size:15px;font-family:inherit;cursor:pointer">
+            <sc-for list="{{ cities }}" as="c" hint-placeholder-count="5"><option>{{ c }}</option></sc-for>
+          </select>
+          <span style="position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none">▾</span>
+        </div>
+      </label>
+      <label style="display:flex;flex-direction:column;gap:7px">
+        <span style="font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600">{{ t.fDrop }}</span>
+        <div style="position:relative">
+          <select style="width:100%;background:var(--bg);color:var(--cream);border:1px solid var(--line);border-radius:11px;padding:12px 30px 12px 13px;font-size:15px;font-family:inherit;cursor:pointer">
+            <sc-for list="{{ cities }}" as="c" hint-placeholder-count="5"><option>{{ c }}</option></sc-for>
+          </select>
+          <span style="position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none">▾</span>
+        </div>
+      </label>
+      <label style="display:flex;flex-direction:column;gap:7px">
+        <span style="font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600">{{ t.fDates }}</span>
+        <div style="background:var(--bg);color:var(--cream);border:1px solid var(--line);border-radius:11px;padding:12px 13px;font-size:15px;display:flex;align-items:center;gap:8px">
+          <span style="width:8px;height:8px;background:var(--teal);transform:rotate(45deg)"></span>{{ t.fDatesVal }}
+        </div>
+      </label>
+      <label style="display:flex;flex-direction:column;gap:7px">
+        <span style="font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600">{{ t.fType }}</span>
+        <div style="position:relative">
+          <select style="width:100%;background:var(--bg);color:var(--cream);border:1px solid var(--line);border-radius:11px;padding:12px 30px 12px 13px;font-size:15px;font-family:inherit;cursor:pointer">
+            <sc-for list="{{ filters }}" as="f" hint-placeholder-count="6"><option>{{ f.label }}</option></sc-for>
+          </select>
+          <span style="position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none">▾</span>
+        </div>
+      </label>
+      <a href="#fleet" style="background:var(--gold);color:#0A1A24;text-decoration:none;font-weight:700;font-size:15px;padding:13px 24px;border-radius:11px;white-space:nowrap;text-align:center">{{ t.fSearch }}</a>
+    </div>
+  </section>
+
+  <!-- ============ STATS ============ -->
+  <section style="max-width:1220px;margin:0 auto;padding:18px 28px 40px">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+      <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+        <div style="border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--bg2)">
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;color:var(--gold);line-height:1">{{ s.num }}</div>
+          <div style="color:var(--muted);font-size:14px;margin-top:6px">{{ s.label }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ============ FLEET ============ -->
+  <section id="fleet" style="max-width:1220px;margin:0 auto;padding:42px 28px 30px;scroll-margin-top:80px">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:24px">
+      <div>
+        <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(30px,3.6vw,44px);letter-spacing:-.02em;line-height:1">{{ t.fleetTitle }}</h2>
+        <p style="color:var(--muted);font-size:16px;margin-top:10px;max-width:40em;text-wrap:pretty">{{ t.fleetSub }}</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:26px">
+      <sc-for list="{{ filters }}" as="f" hint-placeholder-count="6">
+        <button onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
+      <sc-for list="{{ fleet }}" as="car" hint-placeholder-count="9">
+        <div style="{{ car.cardStyle }}">
+          <div style="position:relative;height:152px;background:{{ car.tint }};overflow:hidden">
+            <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(60deg,rgba(224,169,59,.09) 0 1px,transparent 1px 22px),repeating-linear-gradient(-60deg,rgba(224,169,59,.09) 0 1px,transparent 1px 22px);opacity:.9"></div>
+            <div style="position:absolute;inset:0;display:grid;place-items:center"><span style="width:74px;height:74px;border:1.5px solid rgba(243,238,226,.16);transform:rotate(45deg);border-radius:10px"></span></div>
+            <span style="position:absolute;left:14px;bottom:11px;font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.07em;color:rgba(243,238,226,.55)">// {{ car.name }}</span>
+            <sc-if value="{{ car.popular }}" hint-placeholder-val="{{ true }}">
+              <span style="position:absolute;right:12px;top:12px;background:var(--gold);color:#0A1A24;font-size:11px;font-weight:700;padding:5px 10px;border-radius:999px">{{ t.popular }}</span>
+            </sc-if>
+          </div>
+          <div style="padding:17px 17px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+              <div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:18px;line-height:1.1">{{ car.name }}</div>
+                <div style="color:var(--teal);font-size:12.5px;font-weight:600;margin-top:3px">{{ car.catLabel }}</div>
+              </div>
+              <div style="text-align:right;white-space:nowrap">
+                <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px;color:var(--gold)">{{ car.priceLabel }}</span>
+                <span style="color:var(--muted);font-size:12px">{{ t.perDay }}</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:14px;margin-top:13px;color:var(--muted);font-size:12.5px">
+              <span>{{ car.seats }} {{ t.seats }}</span><span style="color:var(--line)">·</span>
+              <span>{{ car.transLabel }}</span><span style="color:var(--line)">·</span>
+              <span>{{ car.bags }} {{ t.bags }}</span>
+            </div>
+            <div style="display:flex;gap:9px;margin-top:16px">
+              <button onClick="{{ car.onReserve }}" style="flex:1;background:var(--cream);color:#0A1A24;border:none;font-weight:700;font-size:14px;padding:11px;border-radius:10px;cursor:pointer;font-family:inherit">{{ t.reserve }}</button>
+              <button onClick="{{ car.onCompare }}" style="{{ car.cmpBtnStyle }}">{{ car.cmpLabel }}</button>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ============ ROUTES ============ -->
+  <section id="routes" style="background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:30px;scroll-margin-top:70px">
+    <div style="max-width:1220px;margin:0 auto;padding:54px 28px">
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(30px,3.6vw,44px);letter-spacing:-.02em;line-height:1">{{ t.routesTitle }}</h2>
+      <p style="color:var(--muted);font-size:16px;margin-top:10px;max-width:42em;text-wrap:pretty">{{ t.routesSub }}</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px">
+        <sc-for list="{{ routes }}" as="r" hint-placeholder-count="6">
+          <div style="position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:{{ r.tint }};min-height:230px;display:flex;flex-direction:column;justify-content:flex-end">
+            <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(60deg,rgba(224,169,59,.08) 0 1px,transparent 1px 24px),repeating-linear-gradient(-60deg,rgba(224,169,59,.08) 0 1px,transparent 1px 24px)"></div>
+            <div style="position:absolute;inset:0;display:grid;place-items:center"><span style="width:90px;height:90px;border:1.5px solid rgba(243,238,226,.13);transform:rotate(45deg);border-radius:12px"></span></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(10,26,36,.85))"></div>
+            <div style="position:relative;padding:20px">
+              <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:25px;letter-spacing:-.01em">{{ r.name }}</div>
+              <div style="color:var(--cream);opacity:.82;font-size:14px;margin-top:4px">{{ r.tagline }}</div>
+              <div style="display:flex;gap:16px;margin-top:14px;font-family:ui-monospace,monospace;font-size:12px;color:var(--teal)">
+                <span>{{ r.km }} km · {{ t.fromTashkent }}</span>
+                <span style="color:var(--gold)">{{ r.dur }} {{ t.drive }}</span>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ADD-ONS ============ -->
+  <section id="addons" style="max-width:1220px;margin:0 auto;padding:54px 28px;scroll-margin-top:70px">
+    <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(30px,3.6vw,44px);letter-spacing:-.02em;line-height:1">{{ t.addonsTitle }}</h2>
+    <p style="color:var(--muted);font-size:16px;margin-top:10px;max-width:42em;text-wrap:pretty">{{ t.addonsSub }}</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px">
+      <sc-for list="{{ addonCards }}" as="a" hint-placeholder-count="6">
+        <div style="border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--bg2);display:flex;align-items:center;justify-content:space-between;gap:14px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <span style="width:38px;height:38px;border:1.5px solid var(--teal);transform:rotate(45deg);border-radius:9px;flex-shrink:0;display:inline-block"></span>
+            <span style="font-weight:600;font-size:15.5px">{{ a.label }}</span>
+          </div>
+          <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;color:var(--gold);font-size:18px;white-space:nowrap">{{ a.priceLabel }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ============ REVIEWS ============ -->
+  <section id="reviews" style="background:var(--bg2);border-top:1px solid var(--line);scroll-margin-top:70px">
+    <div style="max-width:1220px;margin:0 auto;padding:54px 28px">
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(30px,3.6vw,44px);letter-spacing:-.02em;line-height:1">{{ t.reviewsTitle }}</h2>
+      <p style="color:var(--muted);font-size:16px;margin-top:10px">{{ t.reviewsSub }}</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px">
+        <sc-for list="{{ reviews }}" as="rv" hint-placeholder-count="3">
+          <div style="border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--surf)">
+            <div style="color:var(--gold);font-size:15px;letter-spacing:2px">★★★★★</div>
+            <p style="font-size:15.5px;line-height:1.55;margin-top:14px;text-wrap:pretty">“{{ rv.text }}”</p>
+            <div style="display:flex;align-items:center;gap:12px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)">
+              <span style="width:36px;height:36px;background:{{ rv.tint }};border-radius:50%;display:grid;place-items:center;font-weight:700;font-family:'Bricolage Grotesque',sans-serif;color:var(--cream)">{{ rv.initial }}</span>
+              <div>
+                <div style="font-weight:700;font-size:14.5px">{{ rv.name }}</div>
+                <div style="color:var(--muted);font-size:12.5px">{{ rv.country }} · {{ rv.car }}</div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section style="max-width:1220px;margin:0 auto;padding:64px 28px">
+    <div style="position:relative;border-radius:22px;overflow:hidden;background:linear-gradient(120deg,#0f3a3f,#143845);border:1px solid var(--line);padding:56px 40px;text-align:center">
+      <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(60deg,rgba(224,169,59,.10) 0 1px,transparent 1px 28px),repeating-linear-gradient(-60deg,rgba(224,169,59,.10) 0 1px,transparent 1px 28px),repeating-linear-gradient(0deg,rgba(43,184,173,.08) 0 1px,transparent 1px 28px)"></div>
+      <div style="position:relative">
+        <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(30px,4.2vw,50px);letter-spacing:-.025em;line-height:1.02;max-width:18ch;margin:0 auto;text-wrap:balance">{{ t.ctaTitle }}</h2>
+        <p style="color:var(--cream);opacity:.82;font-size:17px;margin-top:16px">{{ t.ctaSub }}</p>
+        <a href="#fleet" style="display:inline-block;margin-top:26px;background:var(--gold);color:#0A1A24;text-decoration:none;font-weight:700;font-size:16px;padding:15px 34px;border-radius:999px">{{ t.ctaBtn }}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="border-top:1px solid var(--line);background:var(--bg2)">
+    <div style="max-width:1220px;margin:0 auto;padding:34px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:11px">
+        <span style="width:22px;height:22px;background:var(--gold);transform:rotate(45deg);display:inline-block;border-radius:4px"></span>
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px;letter-spacing:.04em">SILK ROAD DRIVE</span>
+      </div>
+      <div style="color:var(--muted);font-size:13.5px">{{ t.footer }}</div>
+    </div>
+  </footer>
+
+  <!-- ============ COMPARE BAR ============ -->
+  <sc-if value="{{ cmpShow }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;left:0;right:0;bottom:0;z-index:45;background:rgba(10,26,36,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line);animation:srd-up .3s ease both">
+      <div style="max-width:1220px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:15px">{{ t.compareTitle }}</span>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <sc-for list="{{ cmpCars }}" as="c" hint-placeholder-count="2">
+            <span style="background:var(--surf);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;display:flex;align-items:center;gap:8px">{{ c.name }}<button onClick="{{ c.onRemove }}" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:15px;line-height:1;padding:0">×</button></span>
+          </sc-for>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:10px">
+          <button onClick="{{ onClearCmp }}" style="background:none;border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:10px 16px;font-weight:600;font-size:14px;cursor:pointer;font-family:inherit">{{ t.clearCompare }}</button>
+          <button onClick="{{ onViewCmp }}" style="background:var(--gold);border:none;color:#0A1A24;border-radius:10px;padding:10px 20px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit">{{ t.viewCompare }} ({{ cmpCount }})</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ COMPARE MODAL ============ -->
+  <sc-if value="{{ showCompare }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ onCloseCmp }}" style="position:fixed;inset:0;z-index:60;background:rgba(6,16,22,.74);backdrop-filter:blur(4px);display:grid;place-items:center;padding:24px;animation:srd-fade .2s ease both">
+      <div onClick="{{ stop }}" style="background:var(--bg);border:1px solid var(--line);border-radius:20px;max-width:760px;width:100%;max-height:86vh;overflow:auto;box-shadow:0 40px 100px -30px rgba(0,0,0,.8)">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:22px 24px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg)">
+          <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px">{{ t.compareTitle }}</h3>
+          <button onClick="{{ onCloseCmp }}" style="background:var(--surf);border:1px solid var(--line);color:var(--cream);width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:17px">×</button>
+        </div>
+        <div style="padding:8px 24px 24px">
+          <table style="width:100%;border-collapse:collapse">
+            <thead><tr>
+              <th style="text-align:left;padding:14px 8px;color:var(--muted);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.05em">—</th>
+              <sc-for list="{{ cmpCols }}" as="col" hint-placeholder-count="2">
+                <th style="text-align:left;padding:14px 8px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px">{{ col }}</th>
+              </sc-for>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ cmpRows }}" as="row" hint-placeholder-count="5">
+                <tr style="border-top:1px solid var(--line)">
+                  <td style="padding:14px 8px;color:var(--muted);font-size:13.5px;font-weight:600">{{ row.label }}</td>
+                  <sc-for list="{{ row.vals }}" as="v" hint-placeholder-count="2">
+                    <td style="padding:14px 8px;font-size:15px;font-weight:600">{{ v }}</td>
+                  </sc-for>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ BOOKING DRAWER ============ -->
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ onCloseDrawer }}" style="position:fixed;inset:0;z-index:70;background:rgba(6,16,22,.7);backdrop-filter:blur(4px);animation:srd-fade .25s ease both">
+      <aside onClick="{{ stop }}" style="position:absolute;right:0;top:0;bottom:0;width:min(440px,100%);background:var(--bg);border-left:1px solid var(--line);overflow-y:auto;animation:srd-in .32s cubic-bezier(.22,1,.36,1) both;box-shadow:-30px 0 80px -20px rgba(0,0,0,.7)">
+        <div style="padding:22px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg);z-index:2">
+          <span style="font-family:ui-monospace,monospace;font-size:12px;letter-spacing:.1em;color:var(--gold)">{{ t.drawerTitle }}</span>
+          <button onClick="{{ onCloseDrawer }}" style="background:var(--surf);border:1px solid var(--line);color:var(--cream);width:34px;height:34px;border-radius:9px;cursor:pointer;font-size:17px">×</button>
+        </div>
+
+        <sc-if value="{{ bk.confirmed }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:50px 28px;text-align:center">
+            <div style="width:64px;height:64px;background:var(--teal);transform:rotate(45deg);border-radius:14px;margin:0 auto 24px;display:grid;place-items:center"><span style="transform:rotate(-45deg);color:#0A1A24;font-size:30px;font-weight:800">✓</span></div>
+            <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px">{{ bk.carName }}</h3>
+            <p style="color:var(--muted);font-size:15.5px;margin-top:12px;line-height:1.5;text-wrap:pretty">{{ t.drawerDone }}</p>
+            <button onClick="{{ onCloseDrawer }}" style="margin-top:26px;background:var(--gold);border:none;color:#0A1A24;font-weight:700;font-size:15px;padding:13px 28px;border-radius:11px;cursor:pointer;font-family:inherit">{{ t.close }}</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ bk.editing }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:22px 24px">
+            <!-- car header -->
+            <div style="display:flex;gap:14px;align-items:center;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px">
+              <span style="width:54px;height:54px;background:{{ bk.carTint }};border-radius:11px;display:grid;place-items:center;flex-shrink:0"><span style="width:26px;height:26px;border:1.5px solid rgba(243,238,226,.3);transform:rotate(45deg)"></span></span>
+              <div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:18px">{{ bk.carName }}</div>
+                <div style="color:var(--teal);font-size:13px;font-weight:600">{{ bk.carCat }} · {{ bk.carPrice }}{{ t.perDay }}</div>
+              </div>
+            </div>
+
+            <!-- days -->
+            <div style="margin-top:22px">
+              <div style="font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;margin-bottom:10px">{{ t.drawerDays }}</div>
+              <div style="display:flex;align-items:center;gap:14px">
+                <button onClick="{{ onDec }}" style="width:42px;height:42px;border:1px solid var(--line);background:var(--surf);color:var(--cream);border-radius:11px;font-size:22px;cursor:pointer">−</button>
+                <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:26px;min-width:2.4ch;text-align:center">{{ bk.days }}</span>
+                <button onClick="{{ onInc }}" style="width:42px;height:42px;border:1px solid var(--line);background:var(--surf);color:var(--cream);border-radius:11px;font-size:22px;cursor:pointer">+</button>
+                <span style="color:var(--muted);font-size:14px">{{ bk.daysLabel }}</span>
+              </div>
+            </div>
+
+            <!-- addons -->
+            <div style="margin-top:24px">
+              <div style="font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;margin-bottom:10px">{{ t.drawerAddons }}</div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <sc-for list="{{ bk.addons }}" as="a" hint-placeholder-count="6">
+                  <button onClick="{{ a.onToggle }}" style="{{ a.style }}">
+                    <span style="display:flex;align-items:center;gap:11px">
+                      <span style="{{ a.box }}">{{ a.check }}</span>
+                      <span style="font-weight:600;font-size:14.5px">{{ a.label }}</span>
+                    </span>
+                    <span style="color:var(--gold);font-weight:700;font-size:14px">{{ a.priceLabel }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+
+            <!-- totals -->
+            <div style="margin-top:24px;border-top:1px solid var(--line);padding-top:18px">
+              <div style="display:flex;justify-content:space-between;color:var(--muted);font-size:14.5px;margin-bottom:8px"><span>{{ t.drawerSubtotal }}</span><span>{{ bk.carSub }}</span></div>
+              <div style="display:flex;justify-content:space-between;color:var(--muted);font-size:14.5px;margin-bottom:14px"><span>{{ t.drawerAddons }}</span><span>{{ bk.addonsSub }}</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline">
+                <span style="font-weight:700;font-size:16px">{{ t.drawerTotal }}</span>
+                <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:30px;color:var(--gold)">{{ bk.total }}</span>
+              </div>
+              <button onClick="{{ onConfirm }}" style="width:100%;margin-top:18px;background:var(--gold);border:none;color:#0A1A24;font-weight:700;font-size:16px;padding:15px;border-radius:12px;cursor:pointer;font-family:inherit">{{ t.drawerConfirm }}</button>
+            </div>
+          </div>
+        </sc-if>
+      </aside>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1220,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = {
+    lang: 'en', filter: 'all', compare: [], showCompare: false,
+    selected: null, days: 5, addons: [], confirmed: false,
+  };
+
+  TR = {
+    en: {
+      navFleet:'Fleet', navRoutes:'Routes', navAddons:'Add-ons', navReviews:'Reviews', navBook:'Book now',
+      heroEyebrow:'SELF-DRIVE & CHAUFFEUR · ACROSS UZBEKISTAN',
+      heroTitle:'Drive the Silk Road on your own terms.',
+      heroSub:'Modern UzAuto Chevrolet and new Chinese SUVs, collected in Tashkent and ready for Samarkand, Bukhara and beyond. Unlimited horizons, honest prices.',
+      heroImg:'hero · 4WD on the Registan road', heroRating:'2,400+ trips',
+      fPickup:'Pick-up city', fDrop:'Return city', fDates:'Trip dates', fDatesVal:'30 Jun – 5 Jul', fType:'Car type', fSearch:'Search cars',
+      fleetTitle:'Choose your ride', fleetSub:'From city runabouts to desert-ready SUVs — every car serviced, insured and Silk-Road tested.',
+      fAll:'All', fEconomy:'Economy', fSedan:'Sedan', fSuv:'SUV', fSeven:'7-seater', fElectric:'Electric',
+      perDay:' / day', reserve:'Reserve', seats:'seats', bags:'bags', popular:'Most popular',
+      transAuto:'Automatic', transManual:'Manual', addCompare:'Compare', inCompare:'Added',
+      routesTitle:'Where the road takes you', routesSub:'Curated Silk Road routes with distances and drive times from Tashkent.',
+      fromTashkent:'from Tashkent', drive:'drive',
+      addonsTitle:'Make it yours', addonsSub:'Add a driver, insurance and extras — toggle them on when you reserve.',
+      reviewsTitle:'Travelers, in their words', reviewsSub:'Rated 4.9 / 5 across 2,400+ trips.',
+      ctaTitle:'Your Uzbekistan road trip starts here.', ctaSub:'Free cancellation up to 48h · Airport delivery · 24/7 roadside help.', ctaBtn:'Build my booking',
+      compareTitle:'Compare cars', clearCompare:'Clear', viewCompare:'Compare',
+      rowPrice:'Price / day', rowSeats:'Seats', rowTrans:'Transmission', rowBags:'Luggage', rowCat:'Category', close:'Close',
+      drawerTitle:'YOUR BOOKING', drawerDays:'Rental days', drawerAddons:'Add-ons', drawerSubtotal:'Car subtotal',
+      drawerTotal:'Estimated total', drawerConfirm:'Confirm reservation', drawerDone:"Reserved! We'll email your confirmation and pick-up details within the hour.",
+      day:'day', days:'days', footer:'© 2026 Silk Road Drive · Tashkent, Uzbekistan',
+    },
+    ru: {
+      navFleet:'Автопарк', navRoutes:'Маршруты', navAddons:'Опции', navReviews:'Отзывы', navBook:'Забронировать',
+      heroEyebrow:'С ВОДИТЕЛЕМ И БЕЗ · ПО ВСЕМУ УЗБЕКИСТАНУ',
+      heroTitle:'Путешествуйте по Шёлковому пути на своих условиях.',
+      heroSub:'Современные Chevrolet от UzAuto и новые китайские внедорожники — выдача в Ташкенте, дальше Самарканд, Бухара и не только. Честные цены, никаких границ.',
+      heroImg:'обложка · внедорожник у Регистана', heroRating:'2 400+ поездок',
+      fPickup:'Город получения', fDrop:'Город возврата', fDates:'Даты поездки', fDatesVal:'30 июн – 5 июл', fType:'Тип авто', fSearch:'Найти авто',
+      fleetTitle:'Выберите автомобиль', fleetSub:'От городских малышей до внедорожников для пустыни — каждое авто обслужено, застраховано и проверено на Шёлковом пути.',
+      fAll:'Все', fEconomy:'Эконом', fSedan:'Седан', fSuv:'Внедорожник', fSeven:'7 мест', fElectric:'Электро',
+      perDay:' / сутки', reserve:'Забронировать', seats:'мест', bags:'сумки', popular:'Хит проката',
+      transAuto:'Автомат', transManual:'Механика', addCompare:'Сравнить', inCompare:'Добавлено',
+      routesTitle:'Куда ведёт дорога', routesSub:'Готовые маршруты Шёлкового пути с расстоянием и временем в пути из Ташкента.',
+      fromTashkent:'от Ташкента', drive:'в пути',
+      addonsTitle:'Дополните поездку', addonsSub:'Водитель, страховка и другие опции — включите их при бронировании.',
+      reviewsTitle:'Отзывы путешественников', reviewsSub:'Рейтинг 4.9 / 5 по 2 400+ поездкам.',
+      ctaTitle:'Ваше путешествие по Узбекистану начинается здесь.', ctaSub:'Бесплатная отмена за 48 ч · Доставка в аэропорт · Помощь на дороге 24/7.', ctaBtn:'Собрать бронь',
+      compareTitle:'Сравнение авто', clearCompare:'Очистить', viewCompare:'Сравнить',
+      rowPrice:'Цена / сутки', rowSeats:'Мест', rowTrans:'КПП', rowBags:'Багаж', rowCat:'Класс', close:'Закрыть',
+      drawerTitle:'ВАША БРОНЬ', drawerDays:'Дней аренды', drawerAddons:'Опции', drawerSubtotal:'Авто, итого',
+      drawerTotal:'Итого примерно', drawerConfirm:'Подтвердить бронь', drawerDone:'Забронировано! Подтверждение и детали получения придут на почту в течение часа.',
+      day:'день', days:'дней', footer:'© 2026 Silk Road Drive · Ташкент, Узбекистан',
+    },
+    uz: {
+      navFleet:'Avtopark', navRoutes:'Yo‘nalishlar', navAddons:'Qo‘shimchalar', navReviews:'Sharhlar', navBook:'Band qilish',
+      heroEyebrow:'HAYDOVCHILI VA HAYDOVCHISIZ · BUTUN O‘ZBEKISTON BO‘YLAB',
+      heroTitle:'Ipak yo‘lini o‘z bilganingizcha kashf eting.',
+      heroSub:'UzAuto’ning zamonaviy Chevrolet va yangi Xitoy krossoverlari — Toshkentdan olasiz, keyin Samarqand, Buxoro va undan nariga. Halol narxlar, cheksiz ufqlar.',
+      heroImg:'banner · Registon yo‘lidagi krossover', heroRating:'2 400+ sayohat',
+      fPickup:'Olish shahri', fDrop:'Qaytarish shahri', fDates:'Sayohat sanalari', fDatesVal:'30 iyun – 5 iyul', fType:'Avto turi', fSearch:'Avtolarni topish',
+      fleetTitle:'Avtomobilni tanlang', fleetSub:'Shahar avtosidan cho‘lga tayyor krossoverlargacha — har bir avto texnik ko‘rikdan o‘tgan, sug‘urtalangan va Ipak yo‘lida sinalgan.',
+      fAll:'Hammasi', fEconomy:'Tejamkor', fSedan:'Sedan', fSuv:'Krossover', fSeven:'7 o‘rinli', fElectric:'Elektro',
+      perDay:' / kun', reserve:'Band qilish', seats:'o‘rin', bags:'sumka', popular:'Eng ommabop',
+      transAuto:'Avtomat', transManual:'Mexanika', addCompare:'Solishtirish', inCompare:'Qo‘shildi',
+      routesTitle:'Yo‘l sizni qayerga olib boradi', routesSub:'Toshkentdan masofa va yo‘l vaqtlari bilan tayyor Ipak yo‘li yo‘nalishlari.',
+      fromTashkent:'Toshkentdan', drive:'yo‘lda',
+      addonsTitle:'O‘zingizga moslang', addonsSub:'Haydovchi, sug‘urta va boshqa qo‘shimchalar — band qilishda yoqing.',
+      reviewsTitle:'Sayohatchilar so‘zlari', reviewsSub:'2 400+ sayohat bo‘yicha 4.9 / 5 reyting.',
+      ctaTitle:'O‘zbekiston bo‘ylab sayohatingiz shu yerdan boshlanadi.', ctaSub:'48 soatgacha bepul bekor qilish · Aeroportga yetkazib berish · 24/7 yo‘l yordami.', ctaBtn:'Bronni yig‘ish',
+      compareTitle:'Avtolarni solishtirish', clearCompare:'Tozalash', viewCompare:'Solishtirish',
+      rowPrice:'Narx / kun', rowSeats:'O‘rinlar', rowTrans:'Uzatma', rowBags:'Yuk', rowCat:'Klass', close:'Yopish',
+      drawerTitle:'SIZNING BRONINGIZ', drawerDays:'Ijara kunlari', drawerAddons:'Qo‘shimchalar', drawerSubtotal:'Avto jami',
+      drawerTotal:'Taxminiy jami', drawerConfirm:'Bronni tasdiqlash', drawerDone:'Band qilindi! Tasdiq va olish ma’lumotlarini bir soat ichida emailingizga yuboramiz.',
+      day:'kun', days:'kun', footer:'© 2026 Silk Road Drive · Toshkent, O‘zbekiston',
+    },
+  };
+
+  CATKEY = { economy:'fEconomy', sedan:'fSedan', suv:'fSuv', seven:'fSeven', electric:'fElectric' };
+
+  FLEET = [
+    { id:'spark',   name:'Chevrolet Spark',       cat:'economy',  seats:4, auto:false, bags:2, price:22,  tint:'#15323e', popular:false },
+    { id:'cobalt',  name:'Chevrolet Cobalt',      cat:'sedan',    seats:5, auto:true,  bags:3, price:28,  tint:'#143a44', popular:true },
+    { id:'gentra',  name:'Chevrolet Gentra',      cat:'sedan',    seats:5, auto:true,  bags:3, price:32,  tint:'#123743', popular:false },
+    { id:'malibu',  name:'Chevrolet Malibu',      cat:'sedan',    seats:5, auto:true,  bags:4, price:55,  tint:'#16313c', popular:false },
+    { id:'tracker', name:'Chevrolet Tracker',     cat:'suv',      seats:5, auto:true,  bags:4, price:48,  tint:'#103b40', popular:true },
+    { id:'equinox', name:'Chevrolet Equinox',     cat:'suv',      seats:5, auto:true,  bags:5, price:60,  tint:'#123845', popular:false },
+    { id:'captiva', name:'Chevrolet Captiva',     cat:'seven',    seats:7, auto:true,  bags:5, price:65,  tint:'#15333f', popular:false },
+    { id:'tahoe',   name:'Chevrolet Tahoe',       cat:'seven',    seats:7, auto:true,  bags:6, price:120, tint:'#0f3a3f', popular:false },
+    { id:'tiggo8',  name:'Chery Tiggo 8 Pro',     cat:'seven',    seats:7, auto:true,  bags:5, price:54,  tint:'#143a44', popular:false },
+    { id:'song',    name:'BYD Song Plus EV',      cat:'electric', seats:5, auto:true,  bags:4, price:58,  tint:'#103b40', popular:true },
+  ];
+
+  ROUTES = [
+    { id:'samarkand', km:280,  dur:'4h',  tint:'#143a44', name:{en:'Samarkand',ru:'Самарканд',uz:'Samarqand'}, tagline:{en:'Registan & the Timurid heart',ru:'Регистан и сердце Тимуридов',uz:'Registon va Temuriylar yuragi'} },
+    { id:'bukhara',   km:600,  dur:'7h',  tint:'#123845', name:{en:'Bukhara',ru:'Бухара',uz:'Buxoro'}, tagline:{en:'Holy city of the Silk Road',ru:'Священный город Шёлкового пути',uz:'Ipak yo‘lining muqaddas shahri'} },
+    { id:'khiva',     km:1000, dur:'12h', tint:'#103b40', name:{en:'Khiva',ru:'Хива',uz:'Xiva'}, tagline:{en:'Walled desert citadel',ru:'Крепость посреди пустыни',uz:'Cho‘l qa’lasi'} },
+    { id:'fergana',   km:320,  dur:'5h',  tint:'#16313c', name:{en:'Fergana Valley',ru:'Ферганская долина',uz:'Farg‘ona vodiysi'}, tagline:{en:'Silk, ceramics & orchards',ru:'Шёлк, керамика и сады',uz:'Ipak, sopol va bog‘lar'} },
+    { id:'nuratau',   km:250,  dur:'4h',  tint:'#15333f', name:{en:'Nuratau Mountains',ru:'Горы Нуратау',uz:'Nurota tog‘lari'}, tagline:{en:'Yurt camps & village trails',ru:'Юрты и горные сёла',uz:'O‘tov lagerlari va tog‘ qishloqlari'} },
+    { id:'aral',      km:1100, dur:'14h', tint:'#0f3a3f', name:{en:'Aral Sea',ru:'Аральское море',uz:'Orol dengizi'}, tagline:{en:'Ships stranded in the desert',ru:'Корабли посреди пустыни',uz:'Cho‘ldagi kemalar'} },
+  ];
+
+  ADDONS = [
+    { id:'driver',    price:35, label:{en:'Professional driver',ru:'Личный водитель',uz:'Professional haydovchi'} },
+    { id:'insurance', price:12, label:{en:'Full insurance (CDW)',ru:'Полная страховка (CDW)',uz:'To‘liq sug‘urta (CDW)'} },
+    { id:'gps',       price:5,  label:{en:'GPS navigation',ru:'GPS-навигатор',uz:'GPS navigatsiya'} },
+    { id:'child',     price:4,  label:{en:'Child seat',ru:'Детское кресло',uz:'Bolalar o‘rindig‘i'} },
+    { id:'wifi',      price:6,  label:{en:'Portable Wi-Fi',ru:'Мобильный Wi-Fi',uz:'Ko‘chma Wi-Fi'} },
+    { id:'unlimited', price:9,  label:{en:'Unlimited mileage',ru:'Безлимитный пробег',uz:'Cheksiz masofa'} },
+  ];
+
+  REVIEWS = [
+    { id:'r1', name:'Lena & Markus', car:'Chevrolet Tracker', tint:'#1F7FBF', initial:'L',
+      country:{en:'Germany',ru:'Германия',uz:'Germaniya'},
+      text:{en:'Picked up in Tashkent, dropped in Samarkand — spotless car and the team knew every chaikhana worth stopping at.',ru:'Взяли в Ташкенте, сдали в Самарканде — машина идеальна, а команда знает каждую чайхану по пути.',uz:'Toshkentda oldik, Samarqandda topshirdik — avto toza, jamoa esa yo‘ldagi har bir choyxonani biladi.'} },
+    { id:'r2', name:'Aiko T.', car:'Chevrolet Cobalt', tint:'#2BB8AD', initial:'A',
+      country:{en:'Japan',ru:'Япония',uz:'Yaponiya'},
+      text:{en:'Booked a driver for the Bukhara–Khiva leg. Stress-free desert highway and fair, transparent pricing.',ru:'Взяли водителя на участок Бухара–Хива. Спокойная дорога через пустыню и честные цены.',uz:'Buxoro–Xiva yo‘nalishiga haydovchi oldik. Cho‘l yo‘li xotirjam, narxlar esa halol.'} },
+    { id:'r3', name:'The Okonkwo family', car:'Chevrolet Captiva', tint:'#E0A93B', initial:'O',
+      country:{en:'UK',ru:'Великобритания',uz:'Buyuk Britaniya'},
+      text:{en:'Seven of us plus luggage in the Captiva, child seats ready on arrival. Airport delivery made day one effortless.',ru:'Семеро с багажом в Captiva, детские кресла уже на месте. Доставка в аэропорт упростила первый день.',uz:'Captiva’da yetti kishi va yuk, bolalar o‘rindig‘i tayyor edi. Aeroportga yetkazish birinchi kunni oson qildi.'} },
+  ];
+
+  CITIES = ['Tashkent'];
+
+  stop = (e) => { e.stopPropagation(); };
+  setLang = (l) => this.setState({ lang:l });
+  setFilter = (f) => this.setState({ filter:f });
+  toggleCompare = (id) => {
+    const c = this.state.compare;
+    if (c.includes(id)) this.setState({ compare:c.filter(x=>x!==id) });
+    else if (c.length < 3) this.setState({ compare:[...c,id] });
+  };
+  clearCompare = () => this.setState({ compare:[], showCompare:false });
+  openCar = (id) => this.setState({ selected:id, days:5, addons:[], confirmed:false });
+  closeDrawer = () => this.setState({ selected:null });
+  incDays = () => this.setState(s=>({ days:Math.min(60,s.days+1) }));
+  decDays = () => this.setState(s=>({ days:Math.max(1,s.days-1) }));
+  toggleAddon = (id) => this.setState(s=>({ addons:s.addons.includes(id)?s.addons.filter(x=>x!==id):[...s.addons,id] }));
+  confirm = () => this.setState({ confirmed:true });
+
+  renderVals() {
+    const t = this.TR[this.state.lang];
+    const L = this.state.lang;
+    const acc = '#E0A93B';
+
+    const langButtons = ['en','ru','uz'].map(code => {
+      const active = this.state.lang === code;
+      return { code: code.toUpperCase(), onClick:()=>this.setLang(code),
+        style:`background:${active?acc:'transparent'};color:${active?'#0A1A24':'#93A8B0'};border:none;padding:7px 12px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:.04em` };
+    });
+
+    const filterKeys = ['all','economy','sedan','suv','seven','electric'];
+    const filterLabel = (k) => k==='all'? t.fAll : t[this.CATKEY[k]];
+    const filters = filterKeys.map(k => {
+      const active = this.state.filter === k;
+      return { key:k, label:filterLabel(k), onClick:()=>this.setFilter(k),
+        style:`background:${active?acc:'transparent'};color:${active?'#0A1A24':'#F3EEE2'};border:1px solid ${active?acc:'rgba(226,221,206,.18)'};padding:9px 16px;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit` };
+    });
+
+    const visible = this.FLEET.filter(c => this.state.filter==='all' || c.cat===this.state.filter);
+    const fleet = visible.map(c => {
+      const inCmp = this.state.compare.includes(c.id);
+      return {
+        ...c,
+        slotId: 'car-'+c.id,
+        catLabel: t[this.CATKEY[c.cat]],
+        priceLabel: '$'+c.price,
+        transLabel: c.auto ? t.transAuto : t.transManual,
+        cmpLabel: inCmp ? t.inCompare : t.addCompare,
+        cardStyle: `background:var(--surf);border:1px solid ${inCmp?acc:'rgba(226,221,206,.12)'};border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s`,
+        cmpBtnStyle: `background:${inCmp?'rgba(224,169,59,.14)':'transparent'};color:${inCmp?acc:'#93A8B0'};border:1px solid ${inCmp?acc:'rgba(226,221,206,.18)'};font-weight:600;font-size:13px;padding:11px 13px;border-radius:10px;cursor:pointer;font-family:inherit;white-space:nowrap`,
+        onReserve: ()=>this.openCar(c.id),
+        onCompare: ()=>this.toggleCompare(c.id),
+      };
+    });
+
+    const stats = [
+      { num:'240+', label:t.navFleet==='Avtopark'?'parkdagi avto':(L==='ru'?'авто в парке':'cars in fleet') },
+      { num:'Free', label:L==='ru'?'доставка в аэропорт':(L==='uz'?'aeroportga yetkazish':'airport delivery') },
+      { num:'18k+', label:L==='ru'?'довольных туристов':(L==='uz'?'mamnun sayohatchilar':'happy travelers') },
+      { num:'4.9★', label:L==='ru'?'средний рейтинг':(L==='uz'?'o‘rtacha reyting':'average rating') },
+    ];
+
+    const routes = this.ROUTES.map(r => ({ ...r, name:r.name[L], tagline:r.tagline[L] }));
+    const addonCards = this.ADDONS.map(a => ({ ...a, label:a.label[L], priceLabel:'$'+a.price+t.perDay }));
+    const reviews = this.REVIEWS.map(r => ({ ...r, country:r.country[L], text:r.text[L] }));
+
+    // compare bar + modal
+    const cmpCars = this.state.compare.map(id => {
+      const c = this.FLEET.find(x=>x.id===id);
+      return { name:c.name, onRemove:()=>this.toggleCompare(id) };
+    });
+    const cmpFull = this.state.compare.map(id => this.FLEET.find(x=>x.id===id));
+    const cmpCols = cmpFull.map(c=>c.name);
+    const cmpRows = [
+      { label:t.rowPrice, vals:cmpFull.map(c=>'$'+c.price) },
+      { label:t.rowCat,   vals:cmpFull.map(c=>t[this.CATKEY[c.cat]]) },
+      { label:t.rowSeats, vals:cmpFull.map(c=>String(c.seats)) },
+      { label:t.rowTrans, vals:cmpFull.map(c=>c.auto?t.transAuto:t.transManual) },
+      { label:t.rowBags,  vals:cmpFull.map(c=>String(c.bags)) },
+    ];
+
+    // booking drawer
+    const car = this.FLEET.find(x=>x.id===this.state.selected) || null;
+    let bk = null;
+    if (car) {
+      const addonsTotal = this.ADDONS.filter(a=>this.state.addons.includes(a.id)).reduce((s,a)=>s+a.price*this.state.days,0);
+      const carSub = car.price * this.state.days;
+      bk = {
+        carName: car.name, carTint: car.tint, carCat: t[this.CATKEY[car.cat]], carPrice:'$'+car.price,
+        days: this.state.days, daysLabel: (this.state.days===1?t.day:t.days),
+        confirmed: this.state.confirmed, editing: !this.state.confirmed,
+        carSub:'$'+carSub, addonsSub:'$'+addonsTotal, total:'$'+(carSub+addonsTotal),
+        addons: this.ADDONS.map(a => {
+          const on = this.state.addons.includes(a.id);
+          return { label:a.label[L], priceLabel:'$'+a.price+t.perDay, onToggle:()=>this.toggleAddon(a.id),
+            check: on?'✓':'',
+            box:`width:22px;height:22px;border-radius:6px;border:1.5px solid ${on?acc:'rgba(226,221,206,.3)'};background:${on?acc:'transparent'};color:#0A1A24;display:grid;place-items:center;font-size:14px;font-weight:800;flex-shrink:0`,
+            style:`display:flex;align-items:center;justify-content:space-between;width:100%;background:${on?'rgba(224,169,59,.10)':'var(--bg2)'};border:1px solid ${on?acc:'rgba(226,221,206,.12)'};border-radius:11px;padding:12px 14px;cursor:pointer;font-family:inherit;color:#F3EEE2;text-align:left` };
+        }),
+      };
+    }
+
+    return {
+      t, lang:L, langButtons, filters, fleet, stats, routes, addonCards, reviews, cities:this.CITIES,
+      stop:this.stop,
+      cmpShow: this.state.compare.length>0, cmpCount:this.state.compare.length, cmpCars,
+      showCompare: this.state.showCompare, cmpCols, cmpRows,
+      onClearCmp: this.clearCompare, onViewCmp: ()=>this.setState({showCompare:true}), onCloseCmp: ()=>this.setState({showCompare:false}),
+      drawerOpen: !!car, bk,
+      onCloseDrawer: this.closeDrawer, onInc:this.incDays, onDec:this.decDays, onConfirm:this.confirm,
+    };
+  }
+}
+</script>
+</body>
+</html>

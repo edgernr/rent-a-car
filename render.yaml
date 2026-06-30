@@ -1,0 +1,42 @@
+# Render blueprint — deploys the NestJS API + PostgreSQL.
+# In the Render dashboard: New → Blueprint → pick this repo. Render reads this file.
+# (Web storefront + admin console deploy separately on Vercel — see DEPLOY.md.)
+
+databases:
+  - name: srd-db
+    plan: free
+    databaseName: srd
+    user: srd
+
+services:
+  - type: web
+    name: srd-api
+    env: node
+    plan: free
+    region: frankfurt
+    healthCheckPath: /api/v1/health
+    buildCommand: >-
+      corepack enable &&
+      pnpm install --no-frozen-lockfile &&
+      pnpm --filter @srd/config build &&
+      pnpm --filter @srd/types build &&
+      pnpm --filter @srd/api exec prisma generate &&
+      pnpm --filter @srd/api build
+    startCommand: >-
+      pnpm --filter @srd/api exec prisma migrate deploy &&
+      node apps/api/dist/main.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: srd-db
+          property: connectionString
+      - key: AUTH_SECRET
+        generateValue: true
+      - key: USD_INDICATIVE_RATE_UZS
+        value: "12600"
+      # Set to your Vercel URLs once they exist (comma-separated). Safety only —
+      # the frontends call the API through same-origin proxies, not directly.
+      - key: CORS_ORIGINS
+        sync: false

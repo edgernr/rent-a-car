@@ -1,0 +1,121 @@
+{
+  "nav": {
+    "fleet": "Avtopark",
+    "routes": "Yo‘nalishlar",
+    "addons": "Qo‘shimchalar",
+    "reviews": "Sharhlar",
+    "book": "Band qilish"
+  },
+  "hero": {
+    "eyebrow": "HAYDOVCHILI VA HAYDOVCHISIZ · BUTUN O‘ZBEKISTON BO‘YLAB",
+    "title": "Ipak yo‘lini o‘z bilganingizcha kashf eting.",
+    "sub": "UzAuto’ning zamonaviy Chevrolet va yangi Xitoy krossoverlari — Toshkentdan olasiz, keyin Samarqand, Buxoro va undan nariga. Halol narxlar, cheksiz ufqlar.",
+    "rating": "2 400+ sayohat"
+  },
+  "search": {
+    "pickup": "Olish shahri",
+    "drop": "Qaytarish shahri",
+    "dates": "Sayohat sanalari",
+    "datesVal": "30 iyun – 5 iyul",
+    "type": "Avto turi",
+    "submit": "Avtolarni topish"
+  },
+  "stats": {
+    "fleet": "parkdagi avto",
+    "airport": "aeroportga yetkazish",
+    "travelers": "mamnun sayohatchilar",
+    "rating": "o‘rtacha reyting",
+    "free": "Free"
+  },
+  "fleet": {
+    "title": "Avtomobilni tanlang",
+    "sub": "Shahar avtosidan cho‘lga tayyor krossoverlargacha — har bir avto texnik ko‘rikdan o‘tgan, sug‘urtalangan va Ipak yo‘lida sinalgan.",
+    "all": "Hammasi",
+    "economy": "Tejamkor",
+    "sedan": "Sedan",
+    "suv": "Krossover",
+    "sevenSeater": "7 o‘rinli",
+    "electric": "Elektro",
+    "perDay": "/ kun",
+    "reserve": "Band qilish",
+    "seats": "o‘rin",
+    "bags": "sumka",
+    "automatic": "Avtomat",
+    "manual": "Mexanika",
+    "popular": "Eng ommabop",
+    "compare": "Solishtirish",
+    "added": "Qo‘shildi"
+  },
+  "routes": {
+    "title": "Yo‘l sizni qayerga olib boradi",
+    "sub": "Toshkentdan masofa va yo‘l vaqtlari bilan tayyor Ipak yo‘li yo‘nalishlari.",
+    "fromTashkent": "Toshkentdan",
+    "drive": "yo‘lda"
+  },
+  "addons": {
+    "title": "O‘zingizga moslang",
+    "sub": "Haydovchi, sug‘urta va boshqa qo‘shimchalar — band qilishda yoqing.",
+    "DRIVER": "Professional haydovchi",
+    "CDW_INSURANCE": "To‘liq sug‘urta (CDW)",
+    "GPS": "GPS navigatsiya",
+    "CHILD_SEAT": "Bolalar o‘rindig‘i",
+    "WIFI": "Ko‘chma Wi-Fi",
+    "UNLIMITED_MILEAGE": "Cheksiz masofa"
+  },
+  "reviews": {
+    "title": "Sayohatchilar so‘zlari",
+    "sub": "2 400+ sayohat bo‘yicha 4.9 / 5 reyting.",
+    "r1": "Toshkentda oldik, Samarqandda topshirdik — avto toza, jamoa esa yo‘ldagi har bir choyxonani biladi.",
+    "r1name": "Lena va Markus",
+    "r1meta": "Germaniya · Chevrolet Tracker",
+    "r2": "Buxoro–Xiva yo‘nalishiga haydovchi oldik. Cho‘l yo‘li xotirjam, narxlar esa halol.",
+    "r2name": "Aiko T.",
+    "r2meta": "Yaponiya · Chevrolet Cobalt",
+    "r3": "Captiva’da yetti kishi va yuk, bolalar o‘rindig‘i tayyor edi. Aeroportga yetkazish birinchi kunni oson qildi.",
+    "r3name": "Okonkvo oilasi",
+    "r3meta": "Buyuk Britaniya · Chevrolet Captiva"
+  },
+  "cta": {
+    "title": "O‘zbekiston bo‘ylab sayohatingiz shu yerdan boshlanadi.",
+    "sub": "48 soatgacha bepul bekor qilish · Aeroportga yetkazish · 24/7 yo‘l yordami.",
+    "btn": "Bronni yig‘ish"
+  },
+  "compare": {
+    "title": "Avtolarni solishtirish",
+    "clear": "Tozalash",
+    "view": "Solishtirish",
+    "price": "Narx / kun",
+    "category": "Klass",
+    "seats": "O‘rinlar",
+    "transmission": "Uzatma",
+    "bags": "Yuk"
+  },
+  "drawer": {
+    "title": "SIZNING BRONINGIZ",
+    "days": "Ijara kunlari",
+    "addons": "Qo‘shimchalar",
+    "subtotal": "Avto jami",
+    "addonsSub": "Qo‘shimchalar",
+    "total": "Taxminiy jami",
+    "confirm": "Bronni tasdiqlash",
+    "done": "Band qilindi! Tasdiq va olish ma’lumotlarini bir soat ichida emailingizga yuboramiz.",
+    "close": "Yopish",
+    "day": "kun",
+    "daysLabel": "kun"
+  },
+  "account": {
+    "signIn": "Kirish",
+    "signOut": "Chiqish",
+    "register": "Ro‘yxatdan o‘tish",
+    "tabSignIn": "Kirish",
+    "tabRegister": "Ro‘yxatdan o‘tish",
+    "name": "To‘liq ism",
+    "email": "Email",
+    "password": "Parol",
+    "submitSignIn": "Kirish",
+    "submitRegister": "Hisob yaratish",
+    "welcome": "Salom, {name}",
+    "subtitle": "Tezroq band qiling va sayohatlaringizni kuzating."
+  },
+  "footer": "© 2026 Silk Road Drive · Toshkent, O‘zbekiston"
+}

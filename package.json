@@ -1,0 +1,33 @@
+{
+  "name": "silk-road-drive",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Silk Road Drive — tourist car-rental marketplace for Uzbekistan",
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\"",
+    "db:migrate": "pnpm --filter @srd/api prisma migrate dev",
+    "db:generate": "pnpm --filter @srd/api prisma generate",
+    "db:seed": "pnpm --filter @srd/api db:seed",
+    "db:studio": "pnpm --filter @srd/api prisma studio"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "^19.0.4",
+      "@types/react-dom": "^19.0.2"
+    }
+  }
+}

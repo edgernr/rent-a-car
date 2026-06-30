@@ -1,0 +1,121 @@
+{
+  "nav": {
+    "fleet": "Fleet",
+    "routes": "Routes",
+    "addons": "Add-ons",
+    "reviews": "Reviews",
+    "book": "Book now"
+  },
+  "hero": {
+    "eyebrow": "SELF-DRIVE & CHAUFFEUR · ACROSS UZBEKISTAN",
+    "title": "Drive the Silk Road on your own terms.",
+    "sub": "Modern UzAuto Chevrolet and new Chinese SUVs, collected in Tashkent and ready for Samarkand, Bukhara and beyond. Unlimited horizons, honest prices.",
+    "rating": "2,400+ trips"
+  },
+  "search": {
+    "pickup": "Pick-up city",
+    "drop": "Return city",
+    "dates": "Trip dates",
+    "datesVal": "30 Jun – 5 Jul",
+    "type": "Car type",
+    "submit": "Search cars"
+  },
+  "stats": {
+    "fleet": "cars in fleet",
+    "airport": "airport delivery",
+    "travelers": "happy travelers",
+    "rating": "average rating",
+    "free": "Free"
+  },
+  "fleet": {
+    "title": "Choose your ride",
+    "sub": "From city runabouts to desert-ready SUVs — every car serviced, insured and Silk-Road tested.",
+    "all": "All",
+    "economy": "Economy",
+    "sedan": "Sedan",
+    "suv": "SUV",
+    "sevenSeater": "7-seater",
+    "electric": "Electric",
+    "perDay": "/ day",
+    "reserve": "Reserve",
+    "seats": "seats",
+    "bags": "bags",
+    "automatic": "Automatic",
+    "manual": "Manual",
+    "popular": "Most popular",
+    "compare": "Compare",
+    "added": "Added"
+  },
+  "routes": {
+    "title": "Where the road takes you",
+    "sub": "Curated Silk Road routes with distances and drive times from Tashkent.",
+    "fromTashkent": "from Tashkent",
+    "drive": "drive"
+  },
+  "addons": {
+    "title": "Make it yours",
+    "sub": "Add a driver, insurance and extras — toggle them on when you reserve.",
+    "DRIVER": "Professional driver",
+    "CDW_INSURANCE": "Full insurance (CDW)",
+    "GPS": "GPS navigation",
+    "CHILD_SEAT": "Child seat",
+    "WIFI": "Portable Wi-Fi",
+    "UNLIMITED_MILEAGE": "Unlimited mileage"
+  },
+  "reviews": {
+    "title": "Travelers, in their words",
+    "sub": "Rated 4.9 / 5 across 2,400+ trips.",
+    "r1": "Picked up in Tashkent, dropped in Samarkand — spotless car and the team knew every chaikhana worth stopping at.",
+    "r1name": "Lena & Markus",
+    "r1meta": "Germany · Chevrolet Tracker",
+    "r2": "Booked a driver for the Bukhara–Khiva leg. Stress-free desert highway and fair, transparent pricing.",
+    "r2name": "Aiko T.",
+    "r2meta": "Japan · Chevrolet Cobalt",
+    "r3": "Seven of us plus luggage in the Captiva, child seats ready on arrival. Airport delivery made day one effortless.",
+    "r3name": "The Okonkwo family",
+    "r3meta": "UK · Chevrolet Captiva"
+  },
+  "cta": {
+    "title": "Your Uzbekistan road trip starts here.",
+    "sub": "Free cancellation up to 48h · Airport delivery · 24/7 roadside help.",
+    "btn": "Build my booking"
+  },
+  "compare": {
+    "title": "Compare cars",
+    "clear": "Clear",
+    "view": "Compare",
+    "price": "Price / day",
+    "category": "Category",
+    "seats": "Seats",
+    "transmission": "Transmission",
+    "bags": "Luggage"
+  },
+  "drawer": {
+    "title": "YOUR BOOKING",
+    "days": "Rental days",
+    "addons": "Add-ons",
+    "subtotal": "Car subtotal",
+    "addonsSub": "Add-ons",
+    "total": "Estimated total",
+    "confirm": "Confirm reservation",
+    "done": "Reserved! We'll email your confirmation and pick-up details within the hour.",
+    "close": "Close",
+    "day": "day",
+    "daysLabel": "days"
+  },
+  "account": {
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "register": "Create account",
+    "tabSignIn": "Sign in",
+    "tabRegister": "Register",
+    "name": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "submitSignIn": "Sign in",
+    "submitRegister": "Create account",
+    "welcome": "Hi, {name}",
+    "subtitle": "Book faster and track your trips."
+  },
+  "footer": "© 2026 Silk Road Drive · Tashkent, Uzbekistan"
+}

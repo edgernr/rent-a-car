@@ -1,0 +1,256 @@
+// Silk Road Drive — initial schema (Phase 0/1 foundation).
+// Money is stored as integer UZS minor units (tiyin); UZS is the only
+// settlement currency. Deeper payment/ledger/deposit models arrive in later phases.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums (keep in sync with packages/types) ────────────────
+enum PlatformRole {
+  NONE
+  PLATFORM_STAFF
+  PLATFORM_ADMIN
+}
+
+enum VendorRole {
+  VENDOR_OWNER
+  VENDOR_STAFF
+}
+
+enum VendorStatus {
+  DRAFT
+  PENDING_REVIEW
+  APPROVED
+  SUSPENDED
+  REJECTED
+}
+
+enum PaymentMode {
+  PAY_ON_PICKUP
+  DEPOSIT_ONLINE
+  FULL_ONLINE
+}
+
+enum VehicleCategory {
+  ECONOMY
+  SEDAN
+  SUV
+  SEVEN_SEATER
+  ELECTRIC
+}
+
+enum Transmission {
+  AUTOMATIC
+  MANUAL
+}
+
+enum FuelType {
+  PETROL
+  CNG
+  DIESEL
+  HYBRID
+  ELECTRIC
+}
+
+enum VehicleStatus {
+  AVAILABLE
+  RENTED
+  CLEANING
+  MAINTENANCE
+}
+
+enum ModerationStatus {
+  DRAFT
+  PENDING
+  APPROVED
+  REJECTED
+  DELISTED
+}
+
+enum LocationType {
+  AIRPORT
+  OFFICE
+  HOTEL
+  CITY
+  CUSTOM
+}
+
+enum BookingType {
+  SELF_DRIVE
+  WITH_DRIVER
+}
+
+enum BookingStatus {
+  DRAFT
+  PENDING_PAYMENT
+  CONFIRMED
+  ACTIVE
+  COMPLETED
+  CANCELLED
+  EXPIRED
+}
+
+enum AddonType {
+  DRIVER
+  CDW_INSURANCE
+  GPS
+  CHILD_SEAT
+  WIFI
+  UNLIMITED_MILEAGE
+}
+
+// ─── Identity & tenancy ──────────────────────────────────────
+model User {
+  id              String             @id @default(cuid())
+  email           String             @unique
+  passwordHash    String?
+  name            String?
+  phone           String?
+  platformRole    PlatformRole       @default(NONE)
+  preferredLocale String             @default("en")
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  memberships     VendorMembership[]
+  bookings        Booking[]
+  sessions        Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Vendor {
+  id                   String           @id @default(cuid())
+  slug                 String           @unique
+  legalName            String
+  displayName          String
+  city                 String?
+  status               VendorStatus     @default(DRAFT)
+  commissionBps        Int              @default(1500) // 15.00%
+  defaultPaymentMode   PaymentMode      @default(PAY_ON_PICKUP)
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+  memberships          VendorMembership[]
+  vehicles             Vehicle[]
+  locations            Location[]
+  bookings             Booking[]
+}
+
+model VendorMembership {
+  id        String     @id @default(cuid())
+  vendorId  String
+  userId    String
+  role      VendorRole @default(VENDOR_OWNER)
+  createdAt DateTime   @default(now())
+  vendor    Vendor     @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([vendorId, userId])
+  @@index([vendorId])
+  @@index([userId])
+}
+
+// ─── Catalog ─────────────────────────────────────────────────
+model Location {
+  id        String       @id @default(cuid())
+  vendorId  String
+  type      LocationType @default(OFFICE)
+  iata      String? // TAS, SKD, BHK, UGC
+  name      String
+  city      String
+  lat       Float?
+  lng       Float?
+  createdAt DateTime     @default(now())
+  vendor    Vendor       @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  pickups   Booking[]    @relation("PickupLocation")
+  dropoffs  Booking[]    @relation("DropoffLocation")
+
+  @@index([vendorId])
+}
+
+model Vehicle {
+  id               String           @id @default(cuid())
+  vendorId         String
+  make             String
+  model            String
+  year             Int
+  category         VehicleCategory
+  transmission     Transmission     @default(AUTOMATIC)
+  fuelType         FuelType         @default(PETROL)
+  seats            Int              @default(5)
+  bags             Int              @default(3)
+  plate            String?
+  dailyRateUzs     Int // integer UZS minor units (tiyin)
+  status           VehicleStatus    @default(AVAILABLE)
+  moderationStatus ModerationStatus @default(DRAFT)
+  publishedAt      DateTime?
+  photoKeys        String[]         @default([])
+  popular          Boolean          @default(false)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  vendor           Vendor           @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  bookings         Booking[]
+
+  @@index([vendorId])
+  @@index([category])
+  @@index([moderationStatus])
+}
+
+model Addon {
+  id        String    @id @default(cuid())
+  type      AddonType @unique
+  priceUzs  Int // per day, integer UZS minor units
+  createdAt DateTime  @default(now())
+}
+
+// Curated Silk Road route content for the storefront (platform-owned).
+model Route {
+  id          String  @id @default(cuid())
+  slug        String  @unique
+  km          Int
+  durationHrs Int
+  // Per-locale name/tagline as JSON maps: { en, ru, uz }
+  nameI18n    Json
+  taglineI18n Json
+  sortOrder   Int     @default(0)
+}
+
+// ─── Booking (minimal Phase 0 shell; expanded in Phase 2) ────
+model Booking {
+  id                String        @id @default(cuid())
+  bookingNumber     String        @unique
+  vendorId          String
+  userId            String?
+  vehicleId         String
+  bookingType       BookingType   @default(SELF_DRIVE)
+  status            BookingStatus @default(DRAFT)
+  pickupLocationId  String?
+  dropoffLocationId String?
+  pickupAt          DateTime?
+  dropoffAt         DateTime?
+  days              Int           @default(1)
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  vendor         Vendor    @relation(fields: [vendorId], references: [id])
+  user           User?     @relation(fields: [userId], references: [id])
+  vehicle        Vehicle   @relation(fields: [vehicleId], references: [id])
+  pickupLocation Location? @relation("PickupLocation", fields: [pickupLocationId], references: [id])
+  dropoffLocation Location? @relation("DropoffLocation", fields: [dropoffLocationId], references: [id])
+
+  @@index([vendorId])
+  @@index([vehicleId])
+}

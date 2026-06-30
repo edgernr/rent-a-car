@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{margin:0;background:#091820}
+  @keyframes vd-fade{from{opacity:0}to{opacity:1}}
+  @keyframes vd-up{from{transform:translateY(10px)}to{transform:translateY(0)}}
+  @keyframes vd-in{from{transform:translateY(14px)}to{transform:translateY(0)}}
+  ::selection{background:#E0A93B;color:#091820}
+  select{appearance:none;-webkit-appearance:none}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:rgba(226,221,206,.14);border-radius:8px}
+  image-slot::part(empty){color:rgba(243,238,226,.6)}
+  image-slot::part(ring){border-color:rgba(243,238,226,.22)}
+</style>
+<script src="image-slot.js"></script>
+</helmet>
+
+<div style="--bg:#091820;--bg2:#0C2029;--surf:#102C38;--surf2:#15384400;--gold:#E0A93B;--teal:#2BB8AD;--blue:#3AA0D6;--cream:#F3EEE2;--muted:#8DA2AA;--line:rgba(226,221,206,.11);background:var(--bg);color:var(--cream);font-family:Manrope,system-ui,sans-serif;min-height:100vh;display:flex;-webkit-font-smoothing:antialiased">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside style="width:252px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--line);display:flex;flex-direction:column;position:sticky;top:0;height:100vh">
+    <div style="padding:22px 22px 18px;display:flex;align-items:center;gap:11px;border-bottom:1px solid var(--line)">
+      <span style="width:26px;height:26px;background:var(--gold);transform:rotate(45deg);display:inline-block;border-radius:5px;position:relative"><span style="position:absolute;inset:6px;border:1.5px solid rgba(9,24,32,.65);border-radius:2px"></span></span>
+      <div style="line-height:1.05">
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px;letter-spacing:.01em">SILK ROAD DRIVE</div>
+        <div style="color:var(--gold);font-size:10.5px;font-weight:700;letter-spacing:.18em">VENDOR CONSOLE</div>
+      </div>
+    </div>
+
+    <nav style="padding:14px 12px;display:flex;flex-direction:column;gap:3px;flex:1">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
+        <button onClick="{{ n.onClick }}" style="{{ n.style }}">
+          <span style="{{ n.dot }}"></span>
+          <span style="flex:1;text-align:left">{{ n.label }}</span>
+          <sc-if value="{{ n.showBadge }}" hint-placeholder-val="{{ false }}"><span style="{{ n.badgeStyle }}">{{ n.badge }}</span></sc-if>
+        </button>
+      </sc-for>
+    </nav>
+
+    <div style="padding:14px;border-top:1px solid var(--line)">
+      <div style="display:flex;align-items:center;gap:11px;background:var(--surf);border:1px solid var(--line);border-radius:13px;padding:11px">
+        <span style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--teal),var(--blue));display:grid;place-items:center;font-weight:800;font-family:'Bricolage Grotesque',sans-serif;color:#091820;flex-shrink:0">SA</span>
+        <div style="min-width:0;line-height:1.2">
+          <div style="font-weight:700;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Silk Road Auto LLC</div>
+          <div style="color:var(--muted);font-size:11.5px">Tashkent · Verified</div>
+        </div>
+      </div>
+      <a href="Silk%20Road%20Drive.dc.html" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:9px;color:var(--muted);text-decoration:none;font-size:12.5px;font-weight:600;padding:9px;border:1px solid var(--line);border-radius:10px">View storefront ↗</a>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column">
+
+    <!-- TOPBAR -->
+    <header style="position:sticky;top:0;z-index:30;background:rgba(9,24,32,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:16px 28px;display:flex;align-items:center;gap:20px">
+      <div>
+        <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;letter-spacing:-.01em;line-height:1">{{ pageTitle }}</h1>
+        <div style="color:var(--muted);font-size:13px;margin-top:3px">{{ pageSub }}</div>
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:12px">
+        <div style="display:flex;align-items:center;gap:9px;background:var(--surf);border:1px solid var(--line);border-radius:11px;padding:9px 13px;width:220px;color:var(--muted)">
+          <span style="width:13px;height:13px;border:1.6px solid var(--muted);border-radius:50%;display:inline-block;flex-shrink:0"></span>
+          <span style="font-size:13.5px">Search fleet, clients…</span>
+        </div>
+        <button style="position:relative;width:42px;height:42px;border:1px solid var(--line);background:var(--surf);border-radius:11px;cursor:pointer;display:grid;place-items:center">
+          <span style="width:14px;height:14px;border:1.6px solid var(--cream);border-radius:4px 4px 0 0;display:inline-block"></span>
+          <span style="position:absolute;top:9px;right:10px;width:8px;height:8px;background:var(--gold);border-radius:50%;border:1.5px solid var(--surf)"></span>
+        </button>
+        <button onClick="{{ onAddOpen }}" style="display:flex;align-items:center;gap:8px;background:var(--gold);color:#091820;border:none;font-weight:700;font-size:14px;padding:11px 18px;border-radius:11px;cursor:pointer;font-family:inherit">
+          <span style="font-size:17px;line-height:1">+</span>Add car
+        </button>
+      </div>
+    </header>
+
+    <div style="padding:26px 28px 40px;flex:1">
+
+      <!-- ===== OVERVIEW ===== -->
+      <sc-if value="{{ isOverview }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <!-- KPI GRID -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+            <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="6">
+              <div style="background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:20px;position:relative;overflow:hidden">
+                <div style="display:flex;align-items:center;justify-content:space-between">
+                  <span style="color:var(--muted);font-size:13.5px;font-weight:600">{{ k.label }}</span>
+                  <span style="width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:{{ k.iconBg }}"><span style="width:11px;height:11px;transform:rotate(45deg);border-radius:2px;background:{{ k.accent }};display:inline-block"></span></span>
+                </div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:38px;line-height:1.05;margin-top:12px;color:{{ k.accent }}">{{ k.value }}</div>
+                <div style="color:var(--muted);font-size:12.5px;margin-top:5px">{{ k.trend }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <!-- TWO COLUMN -->
+          <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:16px">
+            <!-- LEFT -->
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <!-- chart -->
+              <div style="background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:22px">
+                <div style="display:flex;align-items:baseline;justify-content:space-between">
+                  <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px">Bookings this week</h3>
+                  <span style="color:var(--teal);font-size:13px;font-weight:700">52 total · +14%</span>
+                </div>
+                <div style="display:flex;align-items:flex-end;gap:14px;height:150px;margin-top:20px">
+                  <sc-for list="{{ chart }}" as="bar" hint-placeholder-count="7">
+                    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end">
+                      <span style="font-size:11.5px;color:var(--muted)">{{ bar.val }}</span>
+                      <div style="width:100%;border-radius:7px 7px 0 0;background:{{ bar.fill }};height:{{ bar.h }}"></div>
+                      <span style="font-size:11.5px;color:var(--muted);font-weight:600">{{ bar.day }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              <!-- ending soon -->
+              <div style="background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:22px">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+                  <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px">Returns ending soon</h3>
+                  <button onClick="{{ onGoBookings }}" style="background:none;border:none;color:var(--gold);font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">All bookings →</button>
+                </div>
+                <div style="display:flex;flex-direction:column">
+                  <sc-for list="{{ endingList }}" as="e" hint-placeholder-count="4">
+                    <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid var(--line)">
+                      <span style="width:38px;height:38px;border-radius:10px;background:{{ e.avatarBg }};display:grid;place-items:center;font-weight:800;font-size:14px;color:#091820;flex-shrink:0;font-family:'Bricolage Grotesque',sans-serif">{{ e.initial }}</span>
+                      <div style="min-width:0;flex:1">
+                        <div style="font-weight:700;font-size:14.5px">{{ e.car }}</div>
+                        <div style="color:var(--muted);font-size:12.5px">{{ e.client }} · {{ e.loc }}</div>
+                      </div>
+                      <div style="text-align:right">
+                        <span style="{{ e.daysStyle }}">{{ e.daysText }}</span>
+                        <div style="color:var(--muted);font-size:12px;margin-top:4px">ends {{ e.end }}</div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT -->
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <!-- fleet status -->
+              <div style="background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:22px">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px">
+                  <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px">Fleet status</h3>
+                  <span style="color:var(--muted);font-size:13px">{{ totalCars }} cars</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:15px">
+                  <sc-for list="{{ statusBreak }}" as="s" hint-placeholder-count="4">
+                    <div>
+                      <div style="display:flex;align-items:center;gap:9px;margin-bottom:7px">
+                        <span style="width:9px;height:9px;border-radius:50%;background:{{ s.color }};display:inline-block"></span>
+                        <span style="font-size:13.5px;font-weight:600;flex:1">{{ s.label }}</span>
+                        <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:15px">{{ s.count }}</span>
+                      </div>
+                      <div style="height:7px;border-radius:6px;background:rgba(226,221,206,.08);overflow:hidden"><div style="height:100%;border-radius:6px;background:{{ s.color }};width:{{ s.w }}"></div></div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              <!-- cleaning -->
+              <div style="background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:22px">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+                  <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:17px">Cleaning queue</h3>
+                  <span style="background:rgba(224,169,59,.16);color:var(--gold);font-weight:700;font-size:12.5px;padding:4px 11px;border-radius:999px">{{ cleaningCount }} cars</span>
+                </div>
+                <div style="display:flex;flex-direction:column">
+                  <sc-for list="{{ cleaningTop }}" as="c" hint-placeholder-count="3">
+                    <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid var(--line)">
+                      <span style="{{ c.priorityDot }}"></span>
+                      <div style="flex:1;min-width:0">
+                        <div style="font-weight:700;font-size:14px">{{ c.car }}</div>
+                        <div style="color:var(--muted);font-size:12px">{{ c.location }} · {{ c.returned }}</div>
+                      </div>
+                      <button onClick="{{ c.onClean }}" style="background:var(--surf);border:1px solid var(--line);color:var(--cream);font-weight:600;font-size:12.5px;padding:8px 12px;border-radius:9px;cursor:pointer;font-family:inherit;white-space:nowrap">Mark clean</button>
+                    </div>
+                  </sc-for>
+                  <sc-if value="{{ cleaningEmpty }}" hint-placeholder-val="{{ false }}">
+                    <div style="text-align:center;padding:24px 0;color:var(--muted)"><div style="font-weight:700;color:var(--teal)">All caught up ✓</div><div style="font-size:13px;margin-top:4px">No cars waiting for clean-up.</div></div>
+                  </sc-if>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== FLEET ===== -->
+      <sc-if value="{{ isFleet }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px">
+            <sc-for list="{{ fleetFilters }}" as="f" hint-placeholder-count="5">
+              <button onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}<span style="opacity:.6;margin-left:6px">{{ f.count }}</span></button>
+            </sc-for>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+            <sc-for list="{{ fleetList }}" as="car" hint-placeholder-count="6">
+              <div style="background:var(--surf);border:1px solid var(--line);border-radius:16px;overflow:hidden">
+                <div style="position:relative;height:128px;background:{{ car.tint }};overflow:hidden">
+                  <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(60deg,rgba(224,169,59,.09) 0 1px,transparent 1px 22px),repeating-linear-gradient(-60deg,rgba(224,169,59,.09) 0 1px,transparent 1px 22px)"></div>
+                  <div style="position:absolute;inset:0;display:grid;place-items:center"><span style="width:60px;height:60px;border:1.5px solid rgba(243,238,226,.16);transform:rotate(45deg);border-radius:9px"></span></div>
+                  <span style="position:absolute;left:12px;top:12px;{{ car.statusStyle }}">{{ car.statusLabel }}</span>
+                  <span style="position:absolute;left:13px;bottom:11px;font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.06em;color:rgba(243,238,226,.6)">{{ car.plate }}</span>
+                </div>
+                <div style="padding:16px">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+                    <div>
+                      <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16.5px;line-height:1.1">{{ car.name }}</div>
+                      <div style="color:var(--teal);font-size:12.5px;font-weight:600;margin-top:2px">{{ car.cat }}</div>
+                    </div>
+                    <div style="text-align:right;white-space:nowrap"><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px;color:var(--gold)">{{ car.priceLabel }}</span><span style="color:var(--muted);font-size:11px">/day</span></div>
+                  </div>
+                  <div style="display:flex;gap:12px;margin-top:11px;color:var(--muted);font-size:12px">
+                    <span>{{ car.seats }} seats</span><span>·</span><span>{{ car.trans }}</span><span>·</span><span>{{ car.trips }} trips</span>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:13px;border-top:1px solid var(--line)">
+                    <span style="color:var(--muted);font-size:12.5px">Next free: <span style="color:var(--cream);font-weight:600">{{ car.next }}</span></span>
+                    <button style="background:none;border:1px solid var(--line);color:var(--cream);font-weight:600;font-size:12.5px;padding:7px 13px;border-radius:9px;cursor:pointer;font-family:inherit">Manage</button>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== BOOKINGS ===== -->
+      <sc-if value="{{ isBookings }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px">
+            <sc-for list="{{ bookingFilters }}" as="f" hint-placeholder-count="5">
+              <button onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</button>
+            </sc-for>
+          </div>
+          <div style="background:var(--surf);border:1px solid var(--line);border-radius:16px;overflow:hidden">
+            <div style="display:grid;grid-template-columns:1.4fr 1.3fr 1.1fr .9fr 1fr .8fr;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line);color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;font-weight:700">
+              <span>Client</span><span>Car</span><span>Dates</span><span>Time left</span><span>Status</span><span style="text-align:right">Total</span>
+            </div>
+            <sc-for list="{{ bookingsList }}" as="b" hint-placeholder-count="7">
+              <div style="display:grid;grid-template-columns:1.4fr 1.3fr 1.1fr .9fr 1fr .8fr;gap:12px;padding:15px 20px;border-top:1px solid var(--line);align-items:center">
+                <div style="display:flex;align-items:center;gap:11px;min-width:0">
+                  <span style="width:34px;height:34px;border-radius:9px;background:{{ b.avatarBg }};display:grid;place-items:center;font-weight:800;font-size:13px;color:#091820;flex-shrink:0;font-family:'Bricolage Grotesque',sans-serif">{{ b.initial }}</span>
+                  <div style="min-width:0"><div style="font-weight:700;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ b.client }}</div><div style="color:var(--muted);font-size:12px">{{ b.country }}</div></div>
+                </div>
+                <span style="font-size:13.5px;font-weight:600">{{ b.car }}</span>
+                <span style="font-size:13px;color:var(--muted)">{{ b.start }} – {{ b.end }}</span>
+                <span style="{{ b.daysStyle }}">{{ b.daysText }}</span>
+                <span><span style="{{ b.statusStyle }}">{{ b.statusLabel }}</span></span>
+                <span style="text-align:right;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:15px;color:var(--gold)">{{ b.totalLabel }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== CLIENTS ===== -->
+      <sc-if value="{{ isClients }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="background:var(--surf);border:1px solid var(--line);border-radius:16px;overflow:hidden">
+            <div style="display:grid;grid-template-columns:1.5fr 1fr .7fr 1.3fr 1fr;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line);color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;font-weight:700">
+              <span>Client</span><span>Country</span><span>Trips</span><span>Current rental</span><span>Status</span>
+            </div>
+            <sc-for list="{{ clientsList }}" as="c" hint-placeholder-count="6">
+              <div style="display:grid;grid-template-columns:1.5fr 1fr .7fr 1.3fr 1fr;gap:12px;padding:15px 20px;border-top:1px solid var(--line);align-items:center">
+                <div style="display:flex;align-items:center;gap:11px;min-width:0">
+                  <span style="width:34px;height:34px;border-radius:9px;background:{{ c.avatarBg }};display:grid;place-items:center;font-weight:800;font-size:13px;color:#091820;flex-shrink:0;font-family:'Bricolage Grotesque',sans-serif">{{ c.initial }}</span>
+                  <div style="min-width:0"><div style="font-weight:700;font-size:13.5px">{{ c.name }}</div><div style="color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.email }}</div></div>
+                </div>
+                <span style="font-size:13.5px">{{ c.country }}</span>
+                <span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:15px">{{ c.trips }}</span>
+                <span style="font-size:13.5px;color:var(--muted)">{{ c.current }}</span>
+                <span><span style="{{ c.statusStyle }}">{{ c.statusLabel }}</span></span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== CLEANING ===== -->
+      <sc-if value="{{ isCleaning }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
+            <span style="background:rgba(224,169,59,.16);color:var(--gold);font-weight:700;font-size:13px;padding:6px 14px;border-radius:999px">{{ cleaningCount }} cars awaiting clean-up</span>
+            <span style="color:var(--muted);font-size:13px">Mark a car clean to return it to the available pool.</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ cleaningList }}" as="c" hint-placeholder-count="5">
+              <div style="background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+                <span style="width:46px;height:46px;border-radius:11px;background:{{ c.tint }};display:grid;place-items:center;flex-shrink:0"><span style="width:20px;height:20px;border:1.5px solid rgba(243,238,226,.3);transform:rotate(45deg)"></span></span>
+                <div style="flex:1;min-width:150px">
+                  <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:16px">{{ c.car }}</div>
+                  <div style="color:var(--muted);font-size:13px;font-family:ui-monospace,monospace;margin-top:2px">{{ c.plate }}</div>
+                </div>
+                <div style="display:flex;gap:28px;flex-wrap:wrap">
+                  <div style="min-width:115px">
+                    <div style="color:var(--muted);font-size:12px">Returned</div>
+                    <div style="font-weight:600;font-size:13.5px">{{ c.returned }}</div>
+                  </div>
+                  <div style="min-width:115px">
+                    <div style="color:var(--muted);font-size:12px">Location</div>
+                    <div style="font-weight:600;font-size:13.5px">{{ c.location }}</div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:13px;margin-left:auto">
+                  <span style="{{ c.priorityStyle }}">{{ c.priorityLabel }}</span>
+                  <button onClick="{{ c.onClean }}" style="background:var(--teal);border:none;color:#091820;font-weight:700;font-size:13.5px;padding:11px 18px;border-radius:11px;cursor:pointer;font-family:inherit;white-space:nowrap">Mark cleaned</button>
+                </div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ cleaningEmpty }}" hint-placeholder-val="{{ false }}">
+              <div style="background:var(--surf);border:1px solid var(--line);border-radius:16px;padding:60px;text-align:center">
+                <div style="width:60px;height:60px;background:var(--teal);transform:rotate(45deg);border-radius:14px;margin:0 auto 20px;display:grid;place-items:center"><span style="transform:rotate(-45deg);color:#091820;font-size:28px;font-weight:800">✓</span></div>
+                <div style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px">All caught up</div>
+                <div style="color:var(--muted);font-size:14px;margin-top:8px">Every returned car has been cleaned and is back in the pool.</div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+  </main>
+
+  <!-- ============ ADD CAR MODAL ============ -->
+  <sc-if value="{{ addOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ onAddClose }}" style="position:fixed;inset:0;z-index:80;background:rgba(5,14,19,.74);backdrop-filter:blur(5px);display:flex;justify-content:center;align-items:flex-start;overflow-y:auto;padding:40px 20px">
+      <div onClick="{{ stop }}" style="background:var(--bg2);border:1px solid var(--line);border-radius:20px;max-width:760px;width:100%;box-shadow:0 40px 100px -30px rgba(0,0,0,.8);animation:vd-in .3s cubic-bezier(.22,1,.36,1) both">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:22px 26px;border-bottom:1px solid var(--line);background:var(--bg2);border-radius:20px 20px 0 0">
+          <div>
+            <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:21px">Add a car to your fleet</h3>
+            <div style="color:var(--muted);font-size:13px;margin-top:2px">Details, photos and availability</div>
+          </div>
+          <button onClick="{{ onAddClose }}" style="background:var(--surf);border:1px solid var(--line);color:var(--cream);width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:18px">×</button>
+        </div>
+
+        <div style="padding:24px 26px">
+          <!-- photos -->
+          <div style="font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin-bottom:11px">Photos</div>
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:11px;margin-bottom:24px">
+            <image-slot id="addcar-main" shape="rounded" radius="13" placeholder="Main photo" style="width:100%;height:150px;display:block"></image-slot>
+            <image-slot id="addcar-2" shape="rounded" radius="13" placeholder="Angle 2" style="width:100%;height:150px;display:block"></image-slot>
+            <image-slot id="addcar-3" shape="rounded" radius="13" placeholder="Interior" style="width:100%;height:150px;display:block"></image-slot>
+          </div>
+
+          <!-- details -->
+          <div style="font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin-bottom:11px">Car details</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px">
+            <label style="grid-column:span 2;display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:var(--muted);font-weight:600">Make &amp; model</span><input placeholder="e.g. Chevrolet Cobalt" style="background:var(--surf);border:1px solid var(--line);border-radius:11px;padding:12px 14px;font-size:14.5px;color:var(--cream);font-family:inherit"></label>
+            <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:var(--muted);font-weight:600">Category</span><div style="position:relative"><select style="width:100%;background:var(--surf);border:1px solid var(--line);border-radius:11px;padding:12px 30px 12px 14px;font-size:14.5px;color:var(--cream);font-family:inherit;cursor:pointer"><sc-for list="{{ categories }}" as="o" hint-placeholder-count="5"><option>{{ o }}</option></sc-for></select><span style="position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none">▾</span></div></label>
+            <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:var(--muted);font-weight:600">Transmission</span><div style="position:relative"><select style="width:100%;background:var(--surf);border:1px solid var(--line);border-radius:11px;padding:12px 30px 12px 14px;font-size:14.5px;color:var(--cream);font-family:inherit;cursor:pointer"><option>Automatic</option><option>Manual</option></select><span style="position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none">▾</span></div></label>
+            <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:var(--muted);font-weight:600">Seats</span><input type="number" value="5" style="background:var(--surf);border:1px solid var(--line);border-radius:11px;padding:12px 14px;font-size:14.5px;color:var(--cream);font-family:inherit"></label>
+            <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:var(--muted);font-weight:600">Year</span><input type="number" value="2024" style="background:var(--surf);border:1px solid var(--line);border-radius:11px;padding:12px 14px;font-size:14.5px;color:var(--cream);font-family:inherit"></label>
+            <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:var(--muted);font-weight:600">Plate number</span><input placeholder="01 A 123 BC" style="background:var(--surf);border:1px solid var(--line);border-radius:11px;padding:12px 14px;font-size:14.5px;color:var(--cream);font-family:inherit"></label>
+            <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:var(--muted);font-weight:600">Daily price (USD)</span><input type="number" value="40" style="background:var(--surf);border:1px solid var(--line);border-radius:11px;padding:12px 14px;font-size:14.5px;color:var(--cream);font-family:inherit"></label>
+          </div>
+
+          <!-- features -->
+          <div style="font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:22px 0 11px">Features</div>
+          <div style="display:flex;flex-wrap:wrap;gap:9px">
+            <sc-for list="{{ featChips }}" as="f" hint-placeholder-count="8">
+              <button onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</button>
+            </sc-for>
+          </div>
+
+          <!-- availability -->
+          <div style="font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;margin:22px 0 11px">Availability</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px">
+            <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:var(--muted);font-weight:600">Status</span><div style="position:relative"><select style="width:100%;background:var(--surf);border:1px solid var(--line);border-radius:11px;padding:12px 30px 12px 14px;font-size:14.5px;color:var(--cream);font-family:inherit;cursor:pointer"><option>Available</option><option>Cleaning</option><option>Maintenance</option></select><span style="position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none">▾</span></div></label>
+            <label style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:var(--muted);font-weight:600">Pick-up location</span><div style="position:relative"><select style="width:100%;background:var(--surf);border:1px solid var(--line);border-radius:11px;padding:12px 30px 12px 14px;font-size:14.5px;color:var(--cream);font-family:inherit;cursor:pointer"><option>Tashkent Airport (TAS)</option><option>Downtown hub</option><option>Hotel delivery</option></select><span style="position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none">▾</span></div></label>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:11px;padding:18px 26px;border-top:1px solid var(--line);background:var(--bg2);border-radius:0 0 20px 20px">
+          <button onClick="{{ onAddClose }}" style="background:none;border:1px solid var(--line);color:var(--cream);font-weight:600;font-size:14px;padding:12px 20px;border-radius:11px;cursor:pointer;font-family:inherit">Cancel</button>
+          <button onClick="{{ onSaveCar }}" style="background:var(--gold);border:none;color:#091820;font-weight:700;font-size:14px;padding:12px 24px;border-radius:11px;cursor:pointer;font-family:inherit">Save car to fleet</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ TOAST ============ -->
+  <sc-if value="{{ toastShow }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:90;background:var(--teal);color:#091820;font-weight:700;font-size:14px;padding:13px 22px;border-radius:12px;box-shadow:0 20px 50px -15px rgba(0,0,0,.6);animation:vd-up .3s ease both;display:flex;align-items:center;gap:10px">
+      <span style="width:18px;height:18px;background:#091820;border-radius:50%;display:grid;place-items:center;color:var(--teal);font-size:12px;font-weight:800">✓</span>{{ toast }}
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1340,&quot;height&quot;:920}}">
+class Component extends DCLogic {
+  state = { view:'overview', addOpen:false, bookingFilter:'all', fleetFilter:'all', cleaned:[], feats:['Air conditioning','Bluetooth'], toast:'' };
+
+  STATUS = {
+    available:{ label:'Available', fg:'#3ECabb', bg:'rgba(43,184,173,.15)', dot:'#2BB8AD' },
+    rented:{ label:'Rented', fg:'#7CC6ED', bg:'rgba(58,160,214,.16)', dot:'#3AA0D6' },
+    cleaning:{ label:'Cleaning', fg:'#ECB65E', bg:'rgba(224,169,59,.16)', dot:'#E0A93B' },
+    maintenance:{ label:'Maintenance', fg:'#E6A684', bg:'rgba(217,140,106,.17)', dot:'#D98C6A' },
+  };
+  BSTATUS = {
+    active:{ label:'Active', fg:'#3ECabb', bg:'rgba(43,184,173,.15)' },
+    ending:{ label:'Ending soon', fg:'#ECB65E', bg:'rgba(224,169,59,.16)' },
+    upcoming:{ label:'Upcoming', fg:'#7CC6ED', bg:'rgba(58,160,214,.16)' },
+    completed:{ label:'Completed', fg:'#8DA2AA', bg:'rgba(141,162,170,.14)' },
+  };
+  PRIORITY = {
+    high:{ label:'High', fg:'#E6A684', bg:'rgba(217,140,106,.17)', dot:'#D98C6A' },
+    medium:{ label:'Medium', fg:'#ECB65E', bg:'rgba(224,169,59,.16)', dot:'#E0A93B' },
+    low:{ label:'Low', fg:'#3ECabb', bg:'rgba(43,184,173,.15)', dot:'#2BB8AD' },
+  };
+  AVS = ['linear-gradient(135deg,#2BB8AD,#3AA0D6)','linear-gradient(135deg,#E0A93B,#D98C6A)','linear-gradient(135deg,#3AA0D6,#6B8DD6)','linear-gradient(135deg,#2BB8AD,#7BC86B)'];
+
+  FLEET = [
+    { id:'cobalt',  name:'Chevrolet Cobalt',  plate:'01 A 123 BC', cat:'Sedan',     seats:5, trans:'Automatic', price:28,  status:'rented',      next:'Jul 3',     trips:34, tint:'#143a44' },
+    { id:'tracker', name:'Chevrolet Tracker', plate:'01 B 456 DE', cat:'SUV',       seats:5, trans:'Automatic', price:48,  status:'rented',      next:'Jul 2',     trips:27, tint:'#103b40' },
+    { id:'malibu',  name:'Chevrolet Malibu',  plate:'01 C 789 FG', cat:'Sedan',     seats:5, trans:'Automatic', price:55,  status:'available',   next:'Now',       trips:19, tint:'#16313c' },
+    { id:'captiva', name:'Chevrolet Captiva', plate:'01 D 234 HI', cat:'7-seater',  seats:7, trans:'Automatic', price:65,  status:'cleaning',    next:'Today 6 PM',trips:22, tint:'#15333f' },
+    { id:'tahoe',   name:'Chevrolet Tahoe',   plate:'01 E 567 JK', cat:'7-seater',  seats:7, trans:'Automatic', price:120, status:'available',   next:'Now',       trips:11, tint:'#0f3a3f' },
+    { id:'song',    name:'BYD Song Plus EV',  plate:'01 F 890 LM', cat:'Electric',  seats:5, trans:'Automatic', price:58,  status:'rented',      next:'Jul 5',     trips:14, tint:'#123845' },
+    { id:'spark',   name:'Chevrolet Spark',   plate:'01 G 135 NO', cat:'Economy',   seats:4, trans:'Manual',    price:22,  status:'maintenance', next:'Jul 4',     trips:31, tint:'#15323e' },
+    { id:'tiggo',   name:'Chery Tiggo 8 Pro', plate:'01 H 246 PQ', cat:'7-seater',  seats:7, trans:'Automatic', price:54,  status:'cleaning',    next:'Today 8 PM',trips:9,  tint:'#143a44' },
+  ];
+
+  BOOKINGS = [
+    { id:'b1', client:'Lena Brandt',   country:'Germany',        car:'Chevrolet Tracker', start:'Jun 26', end:'Jul 2', daysLeft:2,  status:'ending',    total:336, loc:'Samarkand drop' },
+    { id:'b2', client:'Aiko Tanaka',   country:'Japan',          car:'Chevrolet Cobalt',  start:'Jun 28', end:'Jul 3', daysLeft:3,  status:'active',    total:168, loc:'Downtown hub' },
+    { id:'b3', client:'James Okonkwo', country:'United Kingdom',  car:'Chevrolet Captiva', start:'Jun 20', end:'Jun 30',daysLeft:0,  status:'ending',    total:650, loc:'Tashkent Airport' },
+    { id:'b4', client:'Marco Rossi',   country:'Italy',          car:'Chevrolet Malibu',  start:'Jul 1',  end:'Jul 8', daysLeft:9,  status:'upcoming',  total:385, loc:'Tashkent Airport' },
+    { id:'b5', client:'Sofia García',  country:'Spain',          car:'BYD Song Plus EV',  start:'Jun 29', end:'Jul 5', daysLeft:5,  status:'active',    total:348, loc:'Downtown hub' },
+    { id:'b6', client:'Chen Wei',      country:'China',          car:'Chevrolet Tahoe',   start:'Jul 2',  end:'Jul 6', daysLeft:10, status:'upcoming',  total:480, loc:'Tashkent Airport' },
+    { id:'b7', client:'Omar Farouk',   country:'UAE',            car:'Chery Tiggo 8 Pro', start:'Jun 22', end:'Jun 29',daysLeft:-1, status:'completed', total:378, loc:'Downtown hub' },
+  ];
+
+  CLIENTS = [
+    { name:'Lena Brandt',   email:'lena.brandt@mail.de',   country:'Germany',        trips:3, current:'Chevrolet Tracker', status:'active' },
+    { name:'Aiko Tanaka',   email:'aiko.t@mail.jp',        country:'Japan',          trips:2, current:'Chevrolet Cobalt',  status:'active' },
+    { name:'James Okonkwo', email:'j.okonkwo@mail.co.uk',  country:'United Kingdom', trips:1, current:'Chevrolet Captiva', status:'ending' },
+    { name:'Sofia García',  email:'sofia.g@mail.es',       country:'Spain',          trips:4, current:'BYD Song Plus EV',  status:'active' },
+    { name:'Marco Rossi',   email:'m.rossi@mail.it',       country:'Italy',          trips:1, current:'—',                 status:'upcoming' },
+    { name:'Chen Wei',      email:'chen.wei@mail.cn',      country:'China',          trips:2, current:'—',                 status:'upcoming' },
+  ];
+
+  CLEANING = [
+    { id:'c1', car:'Chevrolet Captiva', plate:'01 D 234 HI', returned:'Today 2:10 PM',  location:'Tashkent Airport', priority:'high',   tint:'#15333f' },
+    { id:'c2', car:'Chery Tiggo 8 Pro', plate:'01 H 246 PQ', returned:'Today 1:40 PM',  location:'Downtown hub',     priority:'high',   tint:'#143a44' },
+    { id:'c3', car:'Chevrolet Gentra',  plate:'01 A 901 RS', returned:'Today 11:20 AM', location:'Samarkand drop',   priority:'medium', tint:'#123743' },
+    { id:'c4', car:'Chevrolet Equinox', plate:'01 B 345 TU', returned:'Today 9:05 AM',  location:'Tashkent Airport', priority:'medium', tint:'#123845' },
+    { id:'c5', car:'Chevrolet Spark',   plate:'01 C 678 VW', returned:'Yesterday 7:30 PM',location:'Downtown hub',    priority:'low',    tint:'#15323e' },
+  ];
+
+  CHART = [{d:'Mon',v:5},{d:'Tue',v:7},{d:'Wed',v:6},{d:'Thu',v:9},{d:'Fri',v:8},{d:'Sat',v:11},{d:'Sun',v:6}];
+  CATEGORIES = ['Economy','Sedan','SUV','7-seater','Electric'];
+  FEATURES = ['Air conditioning','GPS','Bluetooth','Child seat','Sunroof','USB-C','Cruise control','All-wheel drive'];
+
+  pill = (c) => `display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap;color:${c.fg};background:${c.bg}`;
+  initials = (n) => n.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+  stop = (e) => e.stopPropagation();
+
+  showToast(msg){ this.setState({ toast:msg }); clearTimeout(this._t); this._t = setTimeout(()=>this.setState({toast:''}), 2600); }
+  setView = (v) => this.setState({ view:v });
+  markClean = (id) => { this.setState(s=>({ cleaned:[...s.cleaned, id] })); this.showToast('Car marked as cleaned'); };
+  toggleFeat = (f) => this.setState(s=>({ feats: s.feats.includes(f) ? s.feats.filter(x=>x!==f) : [...s.feats, f] }));
+  saveCar = () => { this.setState({ addOpen:false }); this.showToast('Car saved to your fleet'); };
+
+  renderVals() {
+    const acc = { gold:'#E0A93B', teal:'#2BB8AD', blue:'#3AA0D6', rose:'#D98C6A', muted:'#8DA2AA' };
+    const v = this.state.view;
+
+    // ---- nav ----
+    const activeBookings = this.BOOKINGS.filter(b=>b.status==='active'||b.status==='ending').length;
+    const needClean = this.CLEANING.length - this.state.cleaned.length;
+    const navDef = [
+      { key:'overview', label:'Overview' },
+      { key:'fleet',    label:'Fleet',    badge:this.FLEET.length },
+      { key:'bookings', label:'Bookings', badge:activeBookings },
+      { key:'clients',  label:'Clients',  badge:this.CLIENTS.length },
+      { key:'cleaning', label:'Cleaning', badge:needClean, alert:true },
+    ];
+    const nav = navDef.map(n => {
+      const on = v === n.key;
+      return {
+        label:n.label, onClick:()=>this.setView(n.key),
+        showBadge: n.badge !== undefined && n.badge > 0,
+        badge: String(n.badge || 0),
+        badgeStyle: `font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:${n.alert?'rgba(224,169,59,.2)':'rgba(226,221,206,.1)'};color:${n.alert?acc.gold:acc.muted}`,
+        dot: `width:7px;height:7px;border-radius:2px;transform:rotate(45deg);display:inline-block;background:${on?acc.gold:'rgba(226,221,206,.35)'}`,
+        style: `display:flex;align-items:center;gap:12px;width:100%;padding:11px 13px;border:none;border-radius:11px;cursor:pointer;font-family:inherit;font-size:14.5px;font-weight:${on?700:600};text-align:left;background:${on?'rgba(224,169,59,.12)':'transparent'};color:${on?'#F3EEE2':acc.muted}`,
+      };
+    });
+
+    const titles = {
+      overview:['Overview', 'Welcome back · Monday, 30 June 2026'],
+      fleet:['Fleet', `${this.FLEET.length} cars listed`],
+      bookings:['Bookings', `${activeBookings} active right now`],
+      clients:['Clients', `${this.CLIENTS.length} travelers on the books`],
+      cleaning:['Cleaning queue', `${needClean} cars awaiting clean-up`],
+    };
+
+    // ---- KPIs ----
+    const kpis = [
+      { label:'Active clients',     value:'18',      trend:'+3 this week',        accent:acc.teal, iconBg:'rgba(43,184,173,.14)' },
+      { label:'Bookings (June)',    value:'42',      trend:'+12% vs May',         accent:acc.blue, iconBg:'rgba(58,160,214,.14)' },
+      { label:'Cars to clean',      value:String(needClean), trend:'2 high priority', accent:acc.gold, iconBg:'rgba(224,169,59,.14)' },
+      { label:'Returns ≤ 48h',      value:'6',       trend:'across 3 locations',  accent:acc.gold, iconBg:'rgba(224,169,59,.14)' },
+      { label:'Fleet utilization',  value:'78%',     trend:'+6 pts this month',   accent:acc.teal, iconBg:'rgba(43,184,173,.14)' },
+      { label:'Revenue (MTD)',      value:'$14,820', trend:'+9% vs target',       accent:acc.gold, iconBg:'rgba(224,169,59,.14)' },
+    ];
+
+    // ---- chart ----
+    const cmax = Math.max(...this.CHART.map(c=>c.v));
+    const chart = this.CHART.map((c,i) => ({ day:c.d, val:c.v, h:Math.round(c.v/cmax*100)+'%', fill:i===5?acc.gold:'rgba(43,184,173,.55)' }));
+
+    // ---- fleet status breakdown ----
+    const counts = { available:0, rented:0, cleaning:0, maintenance:0 };
+    this.FLEET.forEach(c=>counts[c.status]++);
+    const total = this.FLEET.length;
+    const statusBreak = ['available','rented','cleaning','maintenance'].map(k => ({
+      label:this.STATUS[k].label, count:counts[k], color:this.STATUS[k].dot, w:Math.round(counts[k]/total*100)+'%'
+    }));
+
+    // ---- ending soon (overview) ----
+    const endingList = this.BOOKINGS.filter(b=>b.status==='ending'||b.status==='active')
+      .sort((a,b)=>a.daysLeft-b.daysLeft).slice(0,4).map((b,i)=>{
+        const dl = b.daysLeft<=0 ? {t:'Due today', c:this.PRIORITY.high} : b.daysLeft<=2 ? {t:b.daysLeft+' days', c:this.PRIORITY.medium} : {t:b.daysLeft+' days', c:this.PRIORITY.low};
+        return { car:b.car, client:b.client, loc:b.loc, end:b.end, initial:this.initials(b.client), avatarBg:this.AVS[i%4], daysText:dl.t, daysStyle:this.pill(dl.c) };
+      });
+
+    // ---- cleaning ----
+    const cleanRemaining = this.CLEANING.filter(c=>!this.state.cleaned.includes(c.id));
+    const cleaningList = cleanRemaining.map(c => ({ ...c, priorityLabel:this.PRIORITY[c.priority].label, priorityStyle:this.pill(this.PRIORITY[c.priority]), priorityDot:`width:9px;height:9px;border-radius:50%;background:${this.PRIORITY[c.priority].dot};display:inline-block;flex-shrink:0`, onClean:()=>this.markClean(c.id) }));
+    const cleaningTop = cleaningList.slice(0,3);
+
+    // ---- fleet view ----
+    const fleetFilterDef = [['all','All'],['available','Available'],['rented','Rented'],['cleaning','Cleaning'],['maintenance','Maintenance']];
+    const fleetFilters = fleetFilterDef.map(([k,label]) => {
+      const on = this.state.fleetFilter===k;
+      const count = k==='all'? this.FLEET.length : counts[k];
+      return { label, count, onClick:()=>this.setState({fleetFilter:k}),
+        style:`background:${on?acc.gold:'transparent'};color:${on?'#091820':'#F3EEE2'};border:1px solid ${on?acc.gold:'rgba(226,221,206,.16)'};padding:8px 15px;border-radius:999px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit` };
+    });
+    const fleetList = this.FLEET.filter(c=>this.state.fleetFilter==='all'||c.status===this.state.fleetFilter).map(c=>({
+      ...c, priceLabel:'$'+c.price, statusLabel:this.STATUS[c.status].label,
+      statusStyle:this.pill(this.STATUS[c.status])+';backdrop-filter:blur(4px)'
+    }));
+
+    // ---- bookings view ----
+    const bFilterDef = [['all','All'],['active','Active'],['ending','Ending soon'],['upcoming','Upcoming'],['completed','Completed']];
+    const bookingFilters = bFilterDef.map(([k,label]) => {
+      const on = this.state.bookingFilter===k;
+      return { label, onClick:()=>this.setState({bookingFilter:k}),
+        style:`background:${on?acc.gold:'transparent'};color:${on?'#091820':'#F3EEE2'};border:1px solid ${on?acc.gold:'rgba(226,221,206,.16)'};padding:8px 15px;border-radius:999px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit` };
+    });
+    const bookingsList = this.BOOKINGS.filter(b=>this.state.bookingFilter==='all'||b.status===this.state.bookingFilter).map((b,i)=>{
+      const dl = b.daysLeft<0 ? {t:'—', c:this.BSTATUS.completed} : b.daysLeft===0 ? {t:'Due today', c:this.PRIORITY.high} : b.status==='upcoming' ? {t:'in '+b.daysLeft+'d', c:this.BSTATUS.upcoming} : b.daysLeft<=2 ? {t:b.daysLeft+' days', c:this.PRIORITY.medium} : {t:b.daysLeft+' days', c:this.PRIORITY.low};
+      return { ...b, initial:this.initials(b.client), avatarBg:this.AVS[i%4], totalLabel:'$'+b.total, statusLabel:this.BSTATUS[b.status].label, statusStyle:this.pill(this.BSTATUS[b.status]), daysText:dl.t, daysStyle:this.pill(dl.c) };
+    });
+
+    // ---- clients view ----
+    const clientsList = this.CLIENTS.map((c,i)=>({ ...c, initial:this.initials(c.name), avatarBg:this.AVS[i%4], statusLabel:this.BSTATUS[c.status].label, statusStyle:this.pill(this.BSTATUS[c.status]) }));
+
+    // ---- add car feature chips ----
+    const featChips = this.FEATURES.map(f => {
+      const on = this.state.feats.includes(f);
+      return { label:f, onClick:()=>this.toggleFeat(f),
+        style:`background:${on?'rgba(224,169,59,.14)':'var(--surf)'};color:${on?acc.gold:'#F3EEE2'};border:1px solid ${on?acc.gold:'rgba(226,221,206,.14)'};padding:9px 14px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit` };
+    });
+
+    return {
+      nav, pageTitle:titles[v][0], pageSub:titles[v][1],
+      isOverview:v==='overview', isFleet:v==='fleet', isBookings:v==='bookings', isClients:v==='clients', isCleaning:v==='cleaning',
+      kpis, chart, statusBreak, totalCars:total, endingList,
+      cleaningList, cleaningTop, cleaningCount:cleanRemaining.length, cleaningEmpty:cleanRemaining.length===0,
+      fleetFilters, fleetList, bookingFilters, bookingsList, clientsList,
+      categories:this.CATEGORIES, featChips,
+      addOpen:this.state.addOpen, onAddOpen:()=>this.setState({addOpen:true}), onAddClose:()=>this.setState({addOpen:false}),
+      onSaveCar:this.saveCar, onGoBookings:()=>this.setView('bookings'), stop:this.stop,
+      toast:this.state.toast, toastShow:!!this.state.toast,
+    };
+  }
+}
+</script>
+</body>
+</html>
