@@ -11,13 +11,16 @@ databases:
 services:
   - type: web
     name: srd-api
-    env: node
+    runtime: node
     plan: free
     region: frankfurt
     healthCheckPath: /api/v1/health
+    # pnpm is already provided by Render (do NOT run `corepack enable` — it tries to
+    # rewrite /usr/bin/pnpm on a read-only FS and fails with EROFS).
+    # --prod=false forces devDependencies (tsc, nest, prisma, tsx) even though
+    # NODE_ENV=production is set on the service (Render applies env at build).
     buildCommand: >-
-      corepack enable &&
-      pnpm install --no-frozen-lockfile &&
+      pnpm install --no-frozen-lockfile --prod=false &&
       pnpm --filter @srd/config build &&
       pnpm --filter @srd/types build &&
       pnpm --filter @srd/api exec prisma generate &&
