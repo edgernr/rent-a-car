@@ -5,6 +5,7 @@
 databases:
   - name: srd-db
     plan: free
+    region: frankfurt
     databaseName: srd
     user: srd
 
@@ -25,8 +26,12 @@ services:
       pnpm --filter @srd/types build &&
       pnpm --filter @srd/api exec prisma generate &&
       pnpm --filter @srd/api build
+    # Seed runs on every boot — safe because the seed is fully idempotent (upserts)
+    # and only touches the demo rows, never user-created data. Remove `db seed`
+    # here once you no longer want the demo vendor/logins reasserted.
     startCommand: >-
       pnpm --filter @srd/api exec prisma migrate deploy &&
+      pnpm --filter @srd/api exec prisma db seed &&
       node apps/api/dist/main.js
     envVars:
       - key: NODE_ENV
